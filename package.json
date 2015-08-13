@@ -1,0 +1,53 @@
+{
+  "name": "objection-find",
+  "version": "0.1.0",
+  "description": "Find query generator for objection.js models",
+  "main": "lib/objection-find.js",
+  "license": "MIT",
+  "scripts": {
+    "test": "istanbul --config=.istanbul.yml cover _mocha -- --slow 10 --timeout 5000 --reporter spec tests/test.js",
+    "test-only": "mocha --slow 10 --timeout 50000 --reporter spec tests/test.js",
+    "perf-test": "node tests/perf.js",
+    "perf-test-init": "node tests/perf-init.js",
+    "coveralls": "cat ./test-coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js"
+  },
+  "author": {
+    "name": "Sami Koskimäki",
+    "email": "sami.koskimaki@vincit.com",
+    "url": "https://github.com/koskimas"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/vincit/objection-find.js.git"
+  },
+  "keywords": [
+    "orm",
+    "knex",
+    "sql",
+    "query",
+    "postgresql",
+    "mysql",
+    "sqlite3"
+  ],
+  "files": [
+    "README.md",
+    "LICENSE",
+    "objection-find.js",
+    "lib/*"
+  ],
+  "dependencies": {
+    "bluebird": "^2.9.24",
+    "lodash": "^3.9.0"
+  },
+  "devDependencies": {
+    "objection": "git://github.com/Vincit/moron.js.git#6e59ccf",
+    "coveralls": "^2.11.2",
+    "expect.js": "^0.3.1",
+    "istanbul": "^0.3.15",
+    "knex": "^0.8.3",
+    "mocha": "^2.2.4",
+    "mysql": "^2.7.0",
+    "pg": "^4.4.0",
+    "sqlite3": "^3.0.8"
+  }
+}
