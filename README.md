@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/Vincit/objection-find.svg?branch=master)](https://travis-ci.org/Vincit/objection-find) [![Coverage Status](https://coveralls.io/repos/Vincit/objection-find/badge.svg)](https://coveralls.io/r/Vincit/objection-find)
+[![Build Status](https://travis-ci.org/Vincit/objection-find.svg?branch=master)](https://travis-ci.org/Vincit/objection-find) [![Coverage Status](https://coveralls.io/repos/Vincit/objection-find/badge.svg?branch=master&service=github)](https://coveralls.io/github/Vincit/objection-find?branch=master)
 
 # Topics
 
