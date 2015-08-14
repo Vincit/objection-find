@@ -125,10 +125,10 @@ A filter parameter has the following format:
 <propertyReference>|<propertyReference>|...:<filter>=<value>
 ```
 
-A <propertyReference> is either simply a property name like `firstName` or a reference to a
+A `propertyReference` is either simply a property name like `firstName` or a reference to a
 relation's property like `children.age` (`children` is the name of the relation).
 
-<filter> is one of the built-in filters `eq`, `lt`, `lte`, `gt`, `gte`, `like`, `likeLower`
+`filter` is one of the built-in filters `eq`, `lt`, `lte`, `gt`, `gte`, `like`, `likeLower`
 `in`, `notNull` or `isNull`. Filter can also be a custom filter registered using the
 `registerFilter` method.
 
@@ -143,7 +143,7 @@ The following examples explain how filter parameters work:
 | `parent.age:lt=60`                 | Returns all persons whose parent's age is less than 60.                                                 |
 | `parent.age:in=20,22,24`           | Returns all persons whose parent's age is 20, 22 or 24.                                                 |
 
-Filter query parameters are joined with `AND` operator so for example the query string:
+Filters are joined with `AND` operator so for example the query string:
 
 ```
 firstName:eq=Jennifer&parent.age:lt=60&children.firstName:like=%rad%
