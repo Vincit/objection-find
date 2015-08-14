@@ -202,7 +202,8 @@ function createModels(knex) {
 }
 
 function createZeroPad(N) {
-  var n = Math.ceil(Math.log10(N));
+  // log(x) / log(10) == log10(x)
+  var n = Math.ceil(Math.log(N) / Math.log(10));
 
   return function (num) {
     num = num.toString();
