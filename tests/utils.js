@@ -2,6 +2,7 @@ var _ = require('lodash');
 var os = require('os');
 var path = require('path');
 var Knex = require('knex');
+var Promise = require('bluebird');
 var objection = require('objection');
 
 module.exports = {
