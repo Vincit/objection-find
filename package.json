@@ -2,7 +2,7 @@
   "name": "objection-find",
   "version": "0.1.0",
   "description": "Find query generator for objection.js models",
-  "main": "lib/objection-find.js",
+  "main": "objection-find.js",
   "license": "MIT",
   "scripts": {
     "test": "istanbul --config=.istanbul.yml cover _mocha -- --slow 10 --timeout 5000 --reporter spec tests/test.js",

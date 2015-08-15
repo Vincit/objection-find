@@ -77,8 +77,10 @@ module.exports = {
       .then(function () {
         if (session.config.client === 'postgres') {
           // Index to speed up wildcard searches.
-          return session.knex.raw('CREATE INDEX "movie_name_wildcard_index" ON "Movie" USING btree ("name" varchar_pattern_ops)');
-          return session.knex.raw('CREATE INDEX "animal_name_wildcard_index" ON "Animal" USING btree ("name" varchar_pattern_ops)');
+          return Promise.join(
+            session.knex.raw('CREATE INDEX "movie_name_wildcard_index" ON "Movie" USING btree ("name" varchar_pattern_ops)'),
+            session.knex.raw('CREATE INDEX "animal_name_wildcard_index" ON "Animal" USING btree ("name" varchar_pattern_ops)')
+          );
         }
       })
   },
