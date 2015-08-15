@@ -478,15 +478,14 @@ describe('integration tests', function () {
         });
 
         it('should pass allowEager to the query builder', function (done) {
-          return objectionFind(Person)
-            .allowEager('parent')
-            .build({
-              "id:eq": 5,
-              "eager": "parent.[movies, pets]"
-            })
-            .catch(function () {
-              done();
-            });
+          var findQuery = objectionFind(Person).allowEager('parent');
+          expect(findQuery.allowEager()).to.equal('parent');
+          findQuery.build({
+            "id:eq": 5,
+            "eager": "parent.[movies, pets]"
+          }).catch(function () {
+            done();
+          });
         })
 
       });
