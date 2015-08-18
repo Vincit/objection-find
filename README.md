@@ -2,17 +2,18 @@
 
 # Topics
 
-- [Introduction](#fast-introduction)
+- [Introduction](#intruduction)
 - [Installation](#installation)
 - [Getting started](#getting-started)
 - [Query parameters](#query-parameters)
-- [API documentation](#api-documentation)
+- [API documentation](API.md)
 
 # Introduction
 
 Objection-find is a module for building search queries for [objection.js](https://github.com/Vincit/objection.js/)
-models using HTTP query parameters. You can easily filter the results based on model's properties and properties
-of the model's relations using simple expressions. Result can also be paged and sorted using query parameters.
+models using HTTP query parameters. You can easily filter, order and page the result based on model's properties and
+relations using simple expressions. Relations can be eagerly fetched for the results using objection.js relation
+expressions.
 
 Using objection-find in an [express](http://expressjs.com/) route is as easy as this:
 
@@ -36,6 +37,7 @@ $http({
   method: 'GET',
   url: '/api/persons',
 
+  // HTTP Query parameters.
   params: {
     // Select all persons whose first name starts with 'j'
     'firstName:likeLower': 'J%',
@@ -54,7 +56,8 @@ $http({
     // `parent` is a one-to-one relation.
     'orderBy': 'parent.lastName',
 
-    // Fetch relations for the results
+    // Fetch relations for the results. This is an objection.js
+    // relation expression. Check out objection.js for more info.
     'eager': '[children, movies, parent.movies]',
 
     // Select a range starting from index 0
@@ -111,7 +114,7 @@ npm install --save objection-find
 ```
 
 Now you can start bombing the `/persons/search` route. Documentation on the supported query parameters can be found
-[here](#query-parameters)
+[here](#query-parameters).
 
 # Query parameters
 
@@ -125,14 +128,14 @@ A filter parameter has the following format:
 <propertyReference>|<propertyReference>|...:<filter>=<value>
 ```
 
-A `propertyReference` is either simply a property name like `firstName` or a reference to a
-relation's property like `children.age` (`children` is the name of the relation).
+A `propertyReference` is either simply a property name like `firstName` or a reference to a relation's property like
+`children.age` (`children` is the name of the relation).
 
-`filter` is one of the built-in filters `eq`, `lt`, `lte`, `gt`, `gte`, `like`, `likeLower`
-`in`, `notNull` or `isNull`. Filter can also be a custom filter registered using the
-`registerFilter` method.
+`filter` is one of the built-in filters `eq`, `lt`, `lte`, `gt`, `gte`, `like`, `likeLower` `in`, `notNull` or `isNull`.
+Filter can also be a custom filter registered using the `registerFilter` method.
 
-The following examples explain how filter parameters work:
+The following examples explain how filter parameters work. For the examples, assume we have an objection.js model
+`Person` that has a one-to-one relation `parent`, a many-to-many relation `movies` and one-to-many relation `children`.
 
 | Filter query parameter             | Explanation                                                                                             |
 |------------------------------------|---------------------------------------------------------------------------------------------------------|
@@ -164,7 +167,3 @@ In addition to the filter parameters, there is a set of query parameters that ha
 | `orderByDesc=firstName`           | Sort the result by certain property in descending order.                                     |
 | `rangeStart=10`                   | The start of the result range. The result will be `{total: 12343, results: [ ... ]}`.        |
 | `rangeEnd=50`                     | The end of the result range. The result will be `{total: 12343, results: [ ... ]}`.          |
-
-# API documentation
-
-TODO
