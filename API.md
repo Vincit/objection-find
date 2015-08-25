@@ -17,13 +17,13 @@ var Person = require('./models/Person');
 var builder = findQuery(Person);
 ```
 
-`findQuery(Person)` is just a shortcut for [new findQuery.FindQueryBuilder(Person)](#findquerybuilder-constructor)
+`findQuery(Person)` is just a shortcut for [new findQuery.FindQueryBuilder(Person)](#new-findquerybuilderobjectionmodel-model---findquerybuilder)
 
 ### Properties
 
 #### `findQuery.FindQueryBuilder`
 
-The `FindQueryBuilder` constructor. You can use this to create subclasses and whatnot.
+The [FindQueryBuilder constructor](#new-findquerybuilderobjectionmodel-model---findquerybuilder). You can use this to create subclasses and whatnot.
 
 
 
@@ -32,7 +32,7 @@ The `FindQueryBuilder` constructor. You can use this to create subclasses and wh
 
 ### Methods
 
- - [new FindQueryBuilder(objection.Model)](#new-findquerybuilderobjectionmodel--findquerybuilder)
+ - [new FindQueryBuilder(objection.Model)](#new-findquerybuilderobjectionmodel-model---findquerybuilder)
 
 ##### `new FindQueryBuilder(objection.Model model)` -> `FindQueryBuilder`
 
