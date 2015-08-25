@@ -1,5 +1,8 @@
 # API Reference
 
+
+
+
 ## require('objection-find')
 
 #### `findQuery(modelClass)` -> [FindQueryBuilder](#findquerybuilder)
@@ -21,6 +24,9 @@ var builder = findQuery(Person);
 #### `findQuery.FindQueryBuilder`
 
 The `FindQueryBuilder` constructor. You can use this to create subclasses and whatnot.
+
+
+
 
 ## FindQueryBuilder
 
