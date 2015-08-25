@@ -1,12 +1,20 @@
 # API Reference
 
-## Main function
+## require('objection-find')
 
 #### `findQuery(modelClass)` -> [FindQueryBuilder](#findquerybuilder)
 
-The function returned by `require('objection-find')` can be used to create a `FindQueryBuilder` instance. Just
-pass an [objection.js](https://github.com/Vincit/objection.js/) model constructor to the function and start
-building the query. 
+The function returned by `require('objection-find')` can be used to create a [FindQueryBuilder](#findquerybuilder)
+instance. Just pass an [objection.js](https://github.com/Vincit/objection.js/) model constructor to the function 
+and start building the query. 
+
+```js
+var findQuery = require('objection-find');
+var Person = require('./models/Person');
+var builder = findQuery(Person);
+```
+
+`findQuery(Person)` is just a shortcut for [new findQuery.FindQueryBuilder(Person)](#findquerybuilder-constructor)
 
 ### Properties
 
@@ -17,3 +25,9 @@ The `FindQueryBuilder` constructor. You can use this to create subclasses and wh
 ## FindQueryBuilder
 
 ### Methods
+
+ - [new FindQueryBuilder(objection.Model)](#new-findquerybuilderobjectionmodel--findquerybuilder)
+
+##### `new FindQueryBuilder(objection.Model model)` -> `FindQueryBuilder`
+
+The constructor.
