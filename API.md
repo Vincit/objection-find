@@ -43,6 +43,8 @@ and whatnot.
  - [.allow(string|Array.<string>, ...)](#allowstringarraystring-----findquerybuilder)
  - [.allowEager(string)](#alloweagerstring----findquerybuilder)
  - [.registerFilter(boolean)](#registerfilterstring-function----findquerybuilder)
+ - [.specialParameter(string, string)](#specialparameterstring-string----findquerybuilder)
+ - [.build(object, [QueryBuilder])](#buildobject-querybuilder----querybuilder)
  
 <br>
 
