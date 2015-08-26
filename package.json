@@ -40,7 +40,7 @@
     "lodash": "^3.9.0"
   },
   "devDependencies": {
-    "objection": "git://github.com/Vincit/moron.js.git#6e59ccf",
+    "objection": "^0.2.1",
     "coveralls": "^2.11.2",
     "expect.js": "^0.3.1",
     "istanbul": "^0.3.15",
