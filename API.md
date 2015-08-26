@@ -18,7 +18,7 @@ var Person = require('./models/Person');
 var builder = findQuery(Person);
 ```
 
-`findQuery(Person)` is just a shortcut for [new findQuery.FindQueryBuilder(Person)](#new-findquerybuilderobjectionmodel-model---findquerybuilder)
+`findQuery(Person)` is just a shortcut for [new findQuery.FindQueryBuilder(Person)](#new-findquerybuilderobjectionmodelconstructor---findquerybuilder)
 
 #### `findQuery.FindQueryBuilder`
 
@@ -34,11 +34,11 @@ You can use this to create subclasses and whatnot.
 ### Methods
 
  - [new FindQueryBuilder(ObjectionModelConstructor)](#new-findquerybuilderobjectionmodelconstructor---findquerybuilder)
- - [FindQueryBuilder.extend(SubClassConstructor)]()
- - [.allowAll(boolean)]()
- - [.allow(string|Array.<string>, ...)]()
- - [.allowEager(string)]()
- - [.registerFilter(boolean)]()
+ - [FindQueryBuilder.extend(SubClassConstructor)](#findquerybuilderextendsubclassconstructor----subclassconstructor)
+ - [.allowAll(boolean)](#allowallboolean----findquerybuilder)
+ - [.allow(string|Array.<string>, ...)](#allowstringarraystring-----findquerybuilder)
+ - [.allowEager(string)](#alloweagerstring-----findquerybuilder)
+ - [.registerFilter(boolean)](#registerfilterstring-function----findquerybuilder)
  
 <br>
 
@@ -89,7 +89,8 @@ findQueryBuilder.allowAll(false);
 
 Use this method to whitelist [property references](https://github.com/Vincit/objection-find#query-parameters).
 For security reasons it is sometimes important that the user cannot access some properties or relations of a
-model. By default all property references are allowed (see [.allowAll(boolean)]()).
+model. By default all property references are allowed 
+(see [.allowAll(boolean)](#allowallboolean----findquerybuilder)).
 
 ```js
 findQueryBuilder.allow('firstName', 'parent.firstName', 'pets.name');
@@ -116,7 +117,7 @@ By default, any eager expression is allowed.
 findQueryBuilder.allowEager('[movies, children.[movies, children]]');
 ```
 
-#### `registerFilter(string, function)` --> [FindQueryBuilder](#findquerybuilder)
+##### `registerFilter(string, function)` --> [FindQueryBuilder](#findquerybuilder)
 
 Registers a filter function.
 
