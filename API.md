@@ -37,7 +37,7 @@ You can use this to create subclasses and whatnot.
  - [FindQueryBuilder.extend(SubClassConstructor)](#findquerybuilderextendsubclassconstructor----subclassconstructor)
  - [.allowAll(boolean)](#allowallboolean----findquerybuilder)
  - [.allow(string|Array.<string>, ...)](#allowstringarraystring-----findquerybuilder)
- - [.allowEager(string)](#alloweagerstring-----findquerybuilder)
+ - [.allowEager(string)](#alloweagerstring----findquerybuilder)
  - [.registerFilter(boolean)](#registerfilterstring-function----findquerybuilder)
  
 <br>
