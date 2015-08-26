@@ -39,7 +39,7 @@ $http({
 
   // HTTP Query parameters.
   params: {
-    // Select all persons whose first name starts with 'j'
+    // Select all persons whose first name starts with 'j' or 'J'
     'firstName:likeLower': 'J%',
 
     // And who have acted in the movie 'Silver Linings Playbook'.
