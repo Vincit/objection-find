@@ -2,7 +2,7 @@
 
 # Topics
 
-- [Introduction](#intruduction)
+- [Introduction](#introduction)
 - [Installation](#installation)
 - [Getting started](#getting-started)
 - [Query parameters](#query-parameters)
