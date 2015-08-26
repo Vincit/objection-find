@@ -6,6 +6,10 @@
 
 ## require('objection-find')
 
+```js
+var findQuery = require('objection-find');
+```
+
 #### `findQuery(ObjectionModelConstructor)` -> [FindQueryBuilder](#findquerybuilder)
 
 The function returned by `require('objection-find')` can be used to create a [FindQueryBuilder](#findquerybuilder)
@@ -22,8 +26,8 @@ var builder = findQuery(Person);
 
 #### `findQuery.FindQueryBuilder`
 
-The [FindQueryBuilder constructor](#new-findquerybuilderobjectionmodelconstructor---findquerybuilder). 
-You can use this to create subclasses and whatnot.
+The [FindQueryBuilder class](#findquerybuilder) constructor function.  You can use this to create subclasses 
+and whatnot.
 
 <br>
 <br>
@@ -117,29 +121,37 @@ By default, any eager expression is allowed.
 findQueryBuilder.allowEager('[movies, children.[movies, children]]');
 ```
 
+<br>
+
 ##### `registerFilter(string, function)` --> [FindQueryBuilder](#findquerybuilder)
 
-Registers a filter function.
+Registers a filter function that can be used in 
+[filter query parameters](https://github.com/Vincit/objection-find#filters).
 
-Given a query parameter `someProp:eq=10` the `eq` part is the filter. The filter name (in this case 'eq') is mapped
-to a function that performs the filtering.
+Given a filter query parameter `someProp:eq=10` the `eq` part is the filter. The filter name (in this case 'eq') 
+is mapped to a function that performs the filtering.
 
-Filter functions take in a `PropertyRef` instance of the property to be filtered,
-the filter value and the objection.js model class constructor. The filter functions
-must return an object `{method: string, args:}`. For example:
+Filter functions take in three arguments:
+
+ 1. `PropertyRef` instance of the property to be filtered
+ 2. the filter value 
+ 3. and the objection.js model class constructor 
+
+The filter function must return an object `{method: string, args: *}`. For example:
 
 ```js
 function lowercaseEq(propertyRef, value, modelClass) {
   return {
+    // Name of the filter method to be called on the objection.js query builder.
     method: 'where',
-    // You can access the name of the column we are filtering through
-    // `propertyRef.fullColumnName()`.
+    // The arguments to pass for the filter method. You can access the name of the 
+    // column we are filtering through `propertyRef.fullColumnName()`.
     args: [propertyRef.fullColumnName(), '=', value.toLowerCase()]
   };
 }
 ```
 
-A better `lowercaseEq` would also lowercase the column value:
+A better `lowercaseEq` would lowercase both sides of the comparison:
 
 ```js
 function lowercaseEq(propertyRef, value, modelClass) {
@@ -160,16 +172,47 @@ of arguments for the method. The filter is invoked somewhat like this:
 
 ```js
 var filter = lowercaseEq(propertyRef, value, modelClass);
-queryBuilder[filter.method].apply(queryBuilder, filter.args);
+objectionQueryBuilder[filter.method].apply(objectionQueryBuilder, filter.args);
 ```
 
 The args array can be anything the given where method accepts as an argument list. Check
-out the knex.js and objection.js documentation.
+out the [knex.js](http://knexjs.org/#Builder-wheres) and
+[objection.js](http://vincit.github.io/objection.js/QueryBuilder.html) documentation.
 
-To register `lowercaseEq`:
+To register `lowercaseEq` with name `leq`, do this:
 
 ```js
 builder.registerFilter('leq', lowercaseEq);
 ```
 
 Now you could use your filter in the query parameters like this `someProperty:leq=Hello`.
+
+<br>
+
+##### `specialParameter(string, string)` --> [FindQueryBuilder](#findquerybuilder)
+
+This can be used to rename a [special parameter](https://github.com/Vincit/objection-find#special-parameters) 
+for example if it collides with a property name. With the following example you can fetch relations eagerly 
+by giving a `withRelated=[pets, movies]` query parameter instead of `eager=[pets, movies]`.
+ 
+```js
+findQueryBuilder.specialParameter('eager', 'withRelated');
+```
+
+<br>
+
+##### `build(object, [[QueryBuilder](http://vincit.github.io/objection.js/QueryBuilder.html)])` --> [QueryBuilder](http://vincit.github.io/objection.js/QueryBuilder.html)
+
+Given the query parameters, builds the query and returns an objetion.js
+[QueryBuilder](http://vincit.github.io/objection.js/QueryBuilder.html).
+
+```js
+expressApp.get('/persons', function (req, res, next) {
+  findQuery(Person)
+    .allow('firstName', 'movies.name', 'children.firstName')
+    .allowEager('[movies, children]')
+    .build(req.query)
+    .then(function (results) { res.send(results); })
+    .catch(next);
+});
+```
