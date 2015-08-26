@@ -160,10 +160,10 @@ at least one child whose name contains 'rad'.
 
 In addition to the filter parameters, there is a set of query parameters that have a special meaning:
 
-| Special parameter                 | Explanation                                                                                  |
-|-----------------------------------|----------------------------------------------------------------------------------------------|
-| `eager=[children, parent.movies]` | Which relations to fetch eagerly for the result models. An objection.js relation expression. |
-| `orderBy=firstName`               | Sort the result by certain property.                                                         |
-| `orderByDesc=firstName`           | Sort the result by certain property in descending order.                                     |
-| `rangeStart=10`                   | The start of the result range. The result will be `{total: 12343, results: [ ... ]}`.        |
-| `rangeEnd=50`                     | The end of the result range. The result will be `{total: 12343, results: [ ... ]}`.          |
+| Special parameter                 | Explanation                                                                                              |
+|-----------------------------------|----------------------------------------------------------------------------------------------------------|
+| `eager=[children, parent.movies]` | Which relations to fetch eagerly for the result models. An objection.js relation expression.             |
+| `orderBy=firstName`               | Sort the result by certain property.                                                                     |
+| `orderByDesc=firstName`           | Sort the result by certain property in descending order.                                                 |
+| `rangeStart=10`                   | The start of the result range (inclusive). The result will be `{total: 12343, results: [ ... ]}`.        |
+| `rangeEnd=50`                     | The end of the result range (inclusive). The result will be `{total: 12343, results: [ ... ]}`.          |
