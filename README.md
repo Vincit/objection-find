@@ -84,7 +84,7 @@ relation `children`. This example used the `$http` module of [AngularJS](https:/
 objection-find with anything that can send an HTTP request.
 
 Documentation on the supported query parameters can be found [here](#query-parameters) and API documentation
-[here](#api-documentation).
+[here](API.md).
 
 # Installation
 
