@@ -201,7 +201,7 @@ findQueryBuilder.specialParameter('eager', 'withRelated');
 
 <br>
 
-##### `build(object, [[QueryBuilder](http://vincit.github.io/objection.js/QueryBuilder.html)])` --> [QueryBuilder](http://vincit.github.io/objection.js/QueryBuilder.html)
+##### `build(object, [QueryBuilder])` --> [QueryBuilder](http://vincit.github.io/objection.js/QueryBuilder.html)
 
 Given the query parameters, builds the query and returns an objetion.js
 [QueryBuilder](http://vincit.github.io/objection.js/QueryBuilder.html).
