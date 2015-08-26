@@ -36,6 +36,11 @@ You can use this to create subclasses and whatnot.
  - [new FindQueryBuilder(ObjectionModelConstructor)](#new-findquerybuilderobjectionmodelconstructor---findquerybuilder)
  - [FindQueryBuilder.extend(SubClassConstructor)]()
  - [.allowAll(boolean)]()
+ - [.allow(string|Array.<string>, ...)]()
+ - [.allowEager(string)]()
+ - [.registerFilter(boolean)]()
+ 
+<br>
 
 ##### `new FindQueryBuilder(ObjectionModelConstructor)` -> `FindQueryBuilder`
 
@@ -47,7 +52,9 @@ var Person = require('./models/Person');
 var findQueryBuilder = new FindQueryBuilder(Person);
 ```
 
-#### `FindQueryBuilder.extend(SubClassConstructor)` --> `SubClassConstructor`
+<br>
+
+##### `FindQueryBuilder.extend(SubClassConstructor)` --> `SubClassConstructor`
 
 Creates a subclass of the FindQueryBuilder.
 
@@ -65,7 +72,9 @@ MyFindQueryBuilder.prototype.someCustomMethod = function () {
 };
 ```
 
-#### `.allowAll(boolean)` --> [FindQueryBuilder](#findquerybuilder)
+<br>
+
+##### `.allowAll(boolean)` --> [FindQueryBuilder](#findquerybuilder)
 
 Allows all [property references](https://github.com/Vincit/objection-find#query-parameters). See 
 [.allow(string|Array.<string>, ...)]() for allowing only a subset. This is `true` by default.
@@ -74,7 +83,9 @@ Allows all [property references](https://github.com/Vincit/objection-find#query-
 findQueryBuilder.allowAll(false);
 ```
 
-#### `.allow(string|Array.<string>, ...)` --> [FindQueryBuilder](#findquerybuilder)
+<br>
+
+##### `.allow(string|Array.<string>, ...)` --> [FindQueryBuilder](#findquerybuilder)
 
 Use this method to whitelist [property references](https://github.com/Vincit/objection-find#query-parameters).
 For security reasons it is sometimes important that the user cannot access some properties or relations of a
@@ -86,7 +97,9 @@ findQueryBuilder.allow('firstName', 'parent.firstName', 'pets.name');
 findQueryBuilder.allow(['firstName', 'parent.firstName', 'pets.name']);
 ```
 
-#### `allowEager(string)` --> [FindQueryBuilder](#findquerybuilder)
+<br>
+
+##### `allowEager(string)` --> [FindQueryBuilder](#findquerybuilder)
 
 Sets the eager expression allowed by the `eager` query parameter. Any subset of the allowed expression is accepted 
 in the `eager` query parameters. For example setting the allowed expression to `a.b.c` expressions `a`, `a.b` and
