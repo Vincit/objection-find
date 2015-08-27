@@ -1,7 +1,7 @@
 {
   "name": "objection-find",
   "version": "0.1.0",
-  "description": "Find query generator for objection.js models",
+  "description": "Build search queries for objection.js models using HTTP query parameters.",
   "main": "objection-find.js",
   "license": "MIT",
   "scripts": {
@@ -18,16 +18,16 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/vincit/objection-find.js.git"
+    "url": "git://github.com/vincit/objection-find.git"
   },
   "keywords": [
-    "orm",
-    "knex",
+    "objection",
     "sql",
     "query",
     "postgresql",
     "mysql",
-    "sqlite3"
+    "sqlite3",
+    "query parameter"
   ],
   "files": [
     "README.md",
