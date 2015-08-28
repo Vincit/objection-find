@@ -23,9 +23,14 @@ var findQuery = require('objection-find');
 var Person = require('../models/Person');
 
 expressApp.get('/api/persons', function (req, res, next) {
-  findQuery(Person).build(req.query).then(function (persons) {
-    res.send(persons);
-  }).catch(next);
+  findQuery(Person)
+    .allow(['firstName', 'movies.name', 'children.age', 'parent.lastName'])
+    .allowEager('[children.movies, movies, parent.movies]')
+    .build(req.query)
+    .then(function (persons) {
+      res.send(persons);
+    })
+    .catch(next);
 });
 ```
 
