@@ -513,24 +513,6 @@ describe('integration tests', function () {
             });
         });
 
-        it('should throw if an invalid filter is registered', function () {
-          expect(function () {
-            return objectionFind(Animal)
-              .registerFilter('contains', function (propertyRef, value) {
-                return {
-                  method: 'invalidMethod',
-                  args: [propertyRef.fullColumnName(), 'like', '%' + value + '%']
-                };
-              })
-              .build({
-                "name:contains": '5'
-              })
-              .then();
-          }).to.throwException(function (err) {
-            expect(err.statusCode).to.equal(400);
-          });
-        });
-
       });
 
       describe('parse errors', function () {
