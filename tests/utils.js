@@ -166,7 +166,7 @@ function createModels(knex) {
 
   Person.relationMappings = {
     parent: {
-      relation: objection.OneToOneRelation,
+      relation: objection.BelongsToOneRelation,
       modelClass: Person,
       join: {
         from: 'Person.pid',
@@ -175,7 +175,7 @@ function createModels(knex) {
     },
 
     pets: {
-      relation: objection.OneToManyRelation,
+      relation: objection.HasManyRelation,
       modelClass: Animal,
       join: {
         from: 'Person.id',
