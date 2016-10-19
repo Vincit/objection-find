@@ -40,7 +40,7 @@
     "lodash": "^3.9.0"
   },
   "devDependencies": {
-    "objection": "^0.3.0",
+    "objection": "^0.5.0",
     "coveralls": "^2.11.2",
     "expect.js": "^0.3.1",
     "istanbul": "^0.3.15",
