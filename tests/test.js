@@ -315,7 +315,7 @@ describe('integration tests', function () {
               });
           });
 
-          it('should throw if trying to order by OneToMany relation properties', function () {
+          it('should throw if trying to order by HasManyRelation relation properties', function () {
 
             expect(function () {
               objectionFind(Person).build({"orderBy": "movies.name"});
