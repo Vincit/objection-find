@@ -49,5 +49,8 @@
     "objection": "^0.6.1",
     "pg": "^4.4.0",
     "sqlite3": "^3.0.8"
+  },
+  "peerDependencies": {
+    "objection": "^0.6.0"
   }
 }
