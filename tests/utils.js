@@ -10,7 +10,8 @@ module.exports = {
     client: 'sqlite3',
     connection: {
       filename: path.join(os.tmpdir(), 'objection_find_test.db')
-    }
+    },
+    useNullAsDefault: true
   }, {
     client: 'postgres',
     connection: {
