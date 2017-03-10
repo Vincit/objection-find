@@ -46,11 +46,11 @@
     "knex": "^0.8.3",
     "mocha": "^2.2.4",
     "mysql": "^2.7.0",
-    "objection": "^0.6.1",
     "pg": "^4.4.0",
     "sqlite3": "^3.0.8"
+    "objection": "^0.7.0",
   },
   "peerDependencies": {
-    "objection": "^0.6.0"
+    "objection": "^0.7.0"
   }
 }
