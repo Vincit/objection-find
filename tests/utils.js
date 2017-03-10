@@ -124,17 +124,17 @@ module.exports = {
       return session.knex('Person').update('pid', session.knex.raw('id - 1')).where('id', '>', 1);
     }).then(function () {
       progress('1/4');
-      return Promise.all(_.map(_.chunk(_.flatten(_.pluck(persons, 'pets')), C), function (animalChunk) {
+      return Promise.all(_.map(_.chunk(_.flatten(_.map(persons, 'pets')), C), function (animalChunk) {
         return session.knex('Animal').insert(animalChunk);
       }));
     }).then(function () {
       progress('2/4');
-      return Promise.all(_.map(_.chunk(_.flatten(_.pluck(persons, 'movies')), C), function (movieChunk) {
+      return Promise.all(_.map(_.chunk(_.flatten(_.map(persons, 'movies')), C), function (movieChunk) {
         return session.knex('Movie').insert(movieChunk);
       }));
     }).then(function () {
       progress('3/4');
-      return Promise.all(_.map(_.chunk(_.flatten(_.pluck(persons, 'personMovies')), C), function (movieChunk) {
+      return Promise.all(_.map(_.chunk(_.flatten(_.map(persons, 'personMovies')), C), function (movieChunk) {
         return session.knex('Person_Movie').insert(movieChunk);
       }));
     }).then(function () {

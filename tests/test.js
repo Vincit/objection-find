@@ -67,7 +67,7 @@ describe('integration tests', function () {
                 "firstName:in": "F01,F02,F05"
               })
               .then(function (result) {
-                expect(_.pluck(result, 'firstName').sort()).to.eql(['F01', 'F02', 'F05']);
+                expect(_.map(result, 'firstName').sort()).to.eql(['F01', 'F02', 'F05']);
               });
           });
 
@@ -81,7 +81,7 @@ describe('integration tests', function () {
                 "firstName:eq": "F01"
               })
               .then(function (result) {
-                expect(_.invoke(result, 'fullName').sort()).to.eql(['F01 L08']);
+                expect(_.invokeMap(result, 'fullName').sort()).to.eql(['F01 L08']);
               });
           });
 
@@ -91,7 +91,7 @@ describe('integration tests', function () {
                 "firstName": "F01"
               })
               .then(function (result) {
-                expect(_.invoke(result, 'fullName').sort()).to.eql(['F01 L08']);
+                expect(_.invokeMap(result, 'fullName').sort()).to.eql(['F01 L08']);
               });
           });
 
@@ -108,7 +108,7 @@ describe('integration tests', function () {
                 "lastName:lt": "L07"
               })
               .then(function (result) {
-                expect(_.invoke(result, 'fullName').sort()).to.eql(['F03 L06', 'F04 L05', 'F05 L04']);
+                expect(_.invokeMap(result, 'fullName').sort()).to.eql(['F03 L06', 'F04 L05', 'F05 L04']);
               });
           });
 
@@ -125,7 +125,7 @@ describe('integration tests', function () {
                 "lastName:lte": "L07"
               })
               .then(function (result) {
-                expect(_.invoke(result, 'fullName').sort()).to.eql(['F02 L07', 'F03 L06', 'F04 L05', 'F05 L04', 'F06 L03']);
+                expect(_.invokeMap(result, 'fullName').sort()).to.eql(['F02 L07', 'F03 L06', 'F04 L05', 'F05 L04', 'F06 L03']);
               });
           });
 
@@ -142,7 +142,7 @@ describe('integration tests', function () {
                 "lastName:gt": "L03"
               })
               .then(function (result) {
-                expect(_.invoke(result, 'fullName').sort()).to.eql(['F04 L05', 'F05 L04']);
+                expect(_.invokeMap(result, 'fullName').sort()).to.eql(['F04 L05', 'F05 L04']);
               });
           });
 
@@ -159,7 +159,7 @@ describe('integration tests', function () {
                 "lastName:gte": "L03"
               })
               .then(function (result) {
-                expect(_.invoke(result, 'fullName').sort()).to.eql(['F03 L06', 'F04 L05', 'F05 L04', 'F06 L03']);
+                expect(_.invokeMap(result, 'fullName').sort()).to.eql(['F03 L06', 'F04 L05', 'F05 L04', 'F06 L03']);
               });
           });
 
@@ -173,7 +173,7 @@ describe('integration tests', function () {
                 "firstName:like": "%03%"
               })
               .then(function (result) {
-                expect(_.invoke(result, 'fullName').sort()).to.eql(['F03 L06']);
+                expect(_.invokeMap(result, 'fullName').sort()).to.eql(['F03 L06']);
               });
           });
 
@@ -183,7 +183,7 @@ describe('integration tests', function () {
                 "firstName|lastName:like": "%03%"
               })
               .then(function (result) {
-                expect(_.invoke(result, 'fullName').sort()).to.eql(['F03 L06', 'F06 L03']);
+                expect(_.invokeMap(result, 'fullName').sort()).to.eql(['F03 L06', 'F06 L03']);
               });
           });
 
@@ -197,7 +197,7 @@ describe('integration tests', function () {
                 "firstName:likeLower": "f03%"
               })
               .then(function (result) {
-                expect(_.invoke(result, 'fullName').sort()).to.eql(['F03 L06']);
+                expect(_.invokeMap(result, 'fullName').sort()).to.eql(['F03 L06']);
               });
           });
 
@@ -211,7 +211,7 @@ describe('integration tests', function () {
                 "pid:isNull": ''
               })
               .then(function (result) {
-                expect(_.invoke(result, 'fullName').sort()).to.eql(['F00 L09']);
+                expect(_.invokeMap(result, 'fullName').sort()).to.eql(['F00 L09']);
               });
           });
 
@@ -225,7 +225,7 @@ describe('integration tests', function () {
                 "pid:notNull": ''
               })
               .then(function (result) {
-                expect(_.invoke(result, 'fullName').sort()).to.eql(['F01 L08', 'F02 L07', 'F03 L06', 'F04 L05', 'F05 L04', 'F06 L03', 'F07 L02', 'F08 L01', 'F09 L00']);
+                expect(_.invokeMap(result, 'fullName').sort()).to.eql(['F01 L08', 'F02 L07', 'F03 L06', 'F04 L05', 'F05 L04', 'F06 L03', 'F07 L02', 'F08 L01', 'F09 L00']);
               });
           });
 
@@ -243,7 +243,7 @@ describe('integration tests', function () {
                 "parent.firstName": "F00"
               })
               .then(function (result) {
-                expect(_.invoke(result, 'fullName').sort()).to.eql(['F01 L08']);
+                expect(_.invokeMap(result, 'fullName').sort()).to.eql(['F01 L08']);
               });
           });
 
@@ -253,7 +253,7 @@ describe('integration tests', function () {
                 "parent.firstName|parent.lastName:like": "%01%"
               })
               .then(function (result) {
-                expect(_.invoke(result, 'fullName').sort()).to.eql(['F02 L07', 'F09 L00']);
+                expect(_.invokeMap(result, 'fullName').sort()).to.eql(['F02 L07', 'F09 L00']);
               });
           });
 
@@ -263,7 +263,7 @@ describe('integration tests', function () {
                 "parent.id:notNull": ""
               })
               .then(function (result) {
-                expect(_.invoke(result, 'fullName').sort()).to.eql(['F01 L08', 'F02 L07', 'F03 L06', 'F04 L05', 'F05 L04', 'F06 L03', 'F07 L02', 'F08 L01', 'F09 L00']);
+                expect(_.invokeMap(result, 'fullName').sort()).to.eql(['F01 L08', 'F02 L07', 'F03 L06', 'F04 L05', 'F05 L04', 'F06 L03', 'F07 L02', 'F08 L01', 'F09 L00']);
               });
           });
 
@@ -278,7 +278,7 @@ describe('integration tests', function () {
                 "pets.name:lt": "P60"
               })
               .then(function (result) {
-                expect(_.invoke(result, 'fullName').sort()).to.eql(['F05 L04']);
+                expect(_.invokeMap(result, 'fullName').sort()).to.eql(['F05 L04']);
               });
           });
 
@@ -293,7 +293,7 @@ describe('integration tests', function () {
                 "movies.name:lt": "M40"
               })
               .then(function (result) {
-                expect(_.invoke(result, 'fullName').sort()).to.eql(['F06 L03', 'F07 L02', 'F08 L01']);
+                expect(_.invokeMap(result, 'fullName').sort()).to.eql(['F06 L03', 'F07 L02', 'F08 L01']);
               });
           });
 
@@ -311,7 +311,7 @@ describe('integration tests', function () {
                 "orderBy": "lastName"
               })
               .then(function (result) {
-                expect(_.pluck(result, 'lastName')).to.eql(['L00', 'L01', 'L02', 'L03', 'L04', 'L05', 'L06', 'L07', 'L08', 'L09']);
+                expect(_.map(result, 'lastName')).to.eql(['L00', 'L01', 'L02', 'L03', 'L04', 'L05', 'L06', 'L07', 'L08', 'L09']);
               });
           });
 
@@ -336,8 +336,8 @@ describe('integration tests', function () {
               })
               .then(function (result) {
                 // L09 doesn't have a parent, so it comes first or last depending on the database.
-                expect(_.without(_.pluck(result, 'lastName'), 'L09')).to.eql(['L00', 'L01', 'L02', 'L03', 'L04', 'L05', 'L06', 'L07', 'L08']);
-                expect(_.pluck(result, 'lastName')).to.contain('L09');
+                expect(_.without(_.map(result, 'lastName'), 'L09')).to.eql(['L00', 'L01', 'L02', 'L03', 'L04', 'L05', 'L06', 'L07', 'L08']);
+                expect(_.map(result, 'lastName')).to.contain('L09');
               });
           });
 
@@ -352,8 +352,8 @@ describe('integration tests', function () {
               })
               .then(function (result) {
                 // F00 doesn't have a parent, so it comes first or last depending on the database.
-                expect(_.without(_.pluck(result, 'firstName'), 'F00')).to.eql(['F09', 'F08', 'F07', 'F06', 'F05', 'F04', 'F03', 'F02', 'F01']);
-                expect(_.pluck(result, 'firstName')).to.contain('F00');
+                expect(_.without(_.map(result, 'firstName'), 'F00')).to.eql(['F09', 'F08', 'F07', 'F06', 'F05', 'F04', 'F03', 'F02', 'F01']);
+                expect(_.map(result, 'firstName')).to.contain('F00');
               });
           });
 
@@ -372,7 +372,7 @@ describe('integration tests', function () {
             })
             .then(function (result) {
               expect(result.total).to.equal(6);
-              expect(_.pluck(result.results, 'firstName')).to.eql(['F06', 'F07', 'F08']);
+              expect(_.map(result.results, 'firstName')).to.eql(['F06', 'F07', 'F08']);
             });
         });
 
@@ -504,7 +504,7 @@ describe('integration tests', function () {
               "name:contains": '5'
             })
             .then(function (result) {
-              expect(_.pluck(result, 'name').sort()).to.eql([
+              expect(_.map(result, 'name').sort()).to.eql([
                 'P05', 'P15', 'P25', 'P35',
                 'P45', 'P50', 'P51', 'P52',
                 'P53', 'P54', 'P55', 'P56',
@@ -580,8 +580,8 @@ describe('integration tests', function () {
             })
             .then(function (result) {
               expect(result.total).to.equal(4);
-              expect(_.pluck(result.results, 'lastName')).to.eql([/*'L02', 'L03', */'L04', 'L05']);
-              expect(_.pluck(result.results, 'parent.lastName')).to.eql([/*'L03', 'L04', */'L05', 'L06']);
+              expect(_.map(result.results, 'lastName')).to.eql([/*'L02', 'L03', */'L04', 'L05']);
+              expect(_.map(result.results, 'parent.lastName')).to.eql([/*'L03', 'L04', */'L05', 'L06']);
             });
         });
 
