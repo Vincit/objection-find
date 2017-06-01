@@ -51,6 +51,6 @@
     "sqlite3": "^3"
   },
   "peerDependencies": {
-    "objection": "^0.7.0"
+    "objection": "^0.8.0"
   }
 }
