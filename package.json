@@ -5,7 +5,7 @@
   "main": "objection-find.js",
   "license": "MIT",
   "scripts": {
-    "test": "istanbul --config=.istanbul.yml cover _mocha -- --slow 10 --timeout 5000 --reporter spec tests/test.js",
+    "test": "istanbul --config=.istanbul.yml cover node_modules/mocha/bin/_mocha -- --slow 10 --timeout 5000 --reporter spec tests/test.js",
     "test-only": "mocha --slow 10 --timeout 50000 --reporter spec tests/test.js",
     "perf-test": "node tests/perf.js",
     "perf-test-init": "node tests/perf-init.js",
@@ -43,14 +43,14 @@
     "coveralls": "^2",
     "expect.js": "^0.3.1",
     "istanbul": "^0.4",
-    "knex": "^0.12",
+    "knex": "^0.13",
     "mocha": "^2",
     "mysql": "^2",
-    "objection": "^0.7.0",
+    "objection": "^0.8.0",
     "pg": "^6",
     "sqlite3": "^3"
   },
   "peerDependencies": {
-    "objection": "^0.7.0"
+    "objection": "^0.8.0"
   }
 }
