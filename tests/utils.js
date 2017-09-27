@@ -1,3 +1,5 @@
+'use strict';
+
 var _ = require('lodash');
 var os = require('os');
 var path = require('path');
@@ -145,17 +147,9 @@ module.exports = {
 };
 
 function createModels(knex) {
-  var Person = function Person() {};
-  var Animal = function Animal() {};
-  var Movie = function Movie() {};
-
-  objection.Model.extend(Person);
-  objection.Model.extend(Animal);
-  objection.Model.extend(Movie);
-
-  Person.tableName = 'Person';
-  Animal.tableName = 'Animal';
-  Movie.tableName = 'Movie';
+  class Person extends objection.Model { static get tableName () { return 'Person'; } }
+  class Animal extends objection.Model { static get tableName () { return 'Animal'; } }
+  class Movie extends objection.Model { static get tableName () { return 'Movie'; } }
 
   Person.knex(knex);
   Animal.knex(knex);
