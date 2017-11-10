@@ -586,21 +586,6 @@ describe('integration tests', function () {
         });
 
       });
-
-      describe('extend', function () {
-
-        it('FindQueryBuilder.extend should create a subclass', function () {
-          function MyFindQueryBuilder() {
-            objectionFind.FindQueryBuilder.apply(this, arguments);
-          }
-
-          objectionFind.FindQueryBuilder.extend(MyFindQueryBuilder);
-
-          var queryBuilder = new MyFindQueryBuilder(Person);
-          expect(queryBuilder).to.be.a(objectionFind.FindQueryBuilder);
-        });
-
-      });
     });
 
   });
