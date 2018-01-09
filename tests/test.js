@@ -1,18 +1,18 @@
 'use strict';
 
-var _ = require('lodash');
-var expect = require('expect.js');
-var testUtils = require('./utils');
-var objectionFind = require('../objection-find');
+const _ = require('lodash');
+const expect = require('expect.js');
+const testUtils = require('./utils');
+const objectionFind = require('../objection-find');
 
-describe('integration tests', function () {
+describe('integration tests', () => {
 
-  _.each(testUtils.testDatabaseConfigs, function (knexConfig) {
+  _.each(testUtils.testDatabaseConfigs, (knexConfig) => {
 
-    describe(knexConfig.client, function() {
-      var session, knex, Person, Animal, Movie;
+    describe(knexConfig.client, () => {
+      let session, knex, Person, Animal, Movie;
 
-      before(function () {
+      before(() => {
         session = testUtils.initialize(knexConfig);
         knex = session.knex;
         Person = session.models.Person;
@@ -20,13 +20,9 @@ describe('integration tests', function () {
         Movie = session.models.Movie;
       });
 
-      before(function () {
-        return testUtils.dropDb(session);
-      });
+      before(() => testUtils.dropDb(session));
 
-      before(function () {
-        return testUtils.createDb(session);
-      });
+      before(() => testUtils.createDb(session));
 
       /**
        * Insert the test data.
@@ -53,34 +49,32 @@ describe('integration tests', function () {
        * F08 L01 | F07 L02 | P80 - P89 | M19 - M10
        * F09 L00 | F08 L01 | P90 - P99 | M09 - M00
        */
-      before(function () {
-        return testUtils.insertData(session, {persons: 10, pets: 10, movies: 10});
-      });
+      before(() => testUtils.insertData(session, {persons: 10, pets: 10, movies: 10}));
 
-      describe('filters', function () {
+      describe('filters', () => {
 
-        describe('in', function () {
+        describe('in', () => {
 
-          it('should filter using `where in', function () {
+          it('should filter using `where in', () => {
             return objectionFind(Person)
               .build({
                 "firstName:in": "F01,F02,F05"
               })
-              .then(function (result) {
+              .then((result) => {
                 expect(_.map(result, 'firstName').sort()).to.eql(['F01', 'F02', 'F05']);
               });
           });
 
         });
 
-        describe('eq', function () {
+        describe('eq', () => {
 
-          it('should filter using = operator', function () {
+          it('should filter using = operator', () => {
             return objectionFind(Person)
               .build({
                 "firstName:eq": "F01"
               })
-              .then(function (result) {
+              .then((result) =>  {
                 expect(_.invokeMap(result, 'fullName').sort()).to.eql(['F01 L08']);
               });
           });
