@@ -1,6 +1,6 @@
 {
   "name": "objection-find",
-  "version": "0.5.1",
+  "version": "0.9.0",
   "description": "Build search queries for objection.js models using HTTP query parameters.",
   "main": "objection-find.js",
   "license": "MIT",
@@ -46,11 +46,11 @@
     "knex": "^0.13",
     "mocha": "^2",
     "mysql": "^2",
-    "objection": "^0.8.0",
+    "objection": "^0.9.4",
     "pg": "^6",
     "sqlite3": "^3"
   },
   "peerDependencies": {
-    "objection": "^0.8.0"
+    "objection": "^0.9.0"
   }
 }
