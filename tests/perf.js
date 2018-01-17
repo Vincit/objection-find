@@ -10,14 +10,13 @@ var N = 5;
 var session;
 var promise = Promise.resolve();
 
-_.each(testUtils.testDatabaseConfigs, function (dbConfig) {
-
-  promise = promise.then(function () {
+_.each(testUtils.testDatabaseConfigs, function(dbConfig) {
+  promise = promise.then(function() {
     session = testUtils.initialize(dbConfig);
 
     var testPromise = Promise.resolve();
-    _.times(N, function () {
-      testPromise = testPromise.then(function () {
+    _.times(N, function() {
+      testPromise = testPromise.then(function() {
         return test(session);
       });
     });
@@ -29,14 +28,14 @@ _.each(testUtils.testDatabaseConfigs, function (dbConfig) {
     console.time(dbConfig.client + ': many-to-many name starts with');
     return objectionFind(session.models.Person)
       .build({
-        "movies.name:like": 'M53%'
+        'movies.name:like': 'M53%'
       })
-      .then(function (result) {
+      .then(function(result) {
         console.timeEnd(dbConfig.client + ': many-to-many name starts with');
       });
   }
 });
 
-promise.then(function () {
+promise.then(function() {
   process.exit();
 });

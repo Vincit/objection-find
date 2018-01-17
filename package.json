@@ -9,7 +9,9 @@
     "test-only": "mocha --slow 10 --timeout 50000 --reporter spec tests/test.js",
     "perf-test": "node tests/perf.js",
     "perf-test-init": "node tests/perf-init.js",
-    "coveralls": "cat ./test-coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js"
+    "coveralls": "cat ./test-coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
+    "prettier": "prettier --write \"{lib,tests}/**/*.{js,ts}\"",
+    "eslint": "eslint --format codeframe \"lib/**/*.js\" \"tests/**/*.js\""
   },
   "author": {
     "name": "Sami Koskimäki",
@@ -40,7 +42,10 @@
     "lodash": "^4"
   },
   "devDependencies": {
+    "babel-eslint": "^8.2.1",
     "coveralls": "^2",
+    "eslint": "^4.15.0",
+    "eslint-plugin-prettier": "^2.5.0",
     "expect.js": "^0.3.1",
     "istanbul": "^0.4",
     "knex": "^0.13",
@@ -48,6 +53,7 @@
     "mysql": "^2",
     "objection": "^0.9.4",
     "pg": "^6",
+    "prettier": "^1.10.2",
     "sqlite3": "^3"
   },
   "peerDependencies": {
