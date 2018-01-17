@@ -91,6 +91,8 @@ objection-find with anything that can send an HTTP request.
 Documentation on the supported query parameters can be found [here](#query-parameters) and API documentation
 [here](API.md).
 
+It is recommended to use [query builder](https://www.npmjs.com/package/objection-find-query-builder) for constructing query parameters on the client side.
+
 # Installation
 
 ```sh
