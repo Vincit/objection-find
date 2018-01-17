@@ -13,8 +13,8 @@ var findQuery = require('objection-find');
 ##### `findQuery(ObjectionModelConstructor)` -> [FindQueryBuilder](#findquerybuilder)
 
 The function returned by `require('objection-find')` can be used to create a [FindQueryBuilder](#findquerybuilder)
-instance. Just pass an [objection.js](https://github.com/Vincit/objection.js/) model constructor to the function 
-and start building the query. 
+instance. Just pass an [objection.js](https://github.com/Vincit/objection.js/) model constructor to the function
+and start building the query.
 
 ```js
 var findQuery = require('objection-find');
@@ -26,7 +26,7 @@ var builder = findQuery(Person);
 
 ##### `findQuery.FindQueryBuilder`
 
-The [FindQueryBuilder class](#findquerybuilder) constructor function.  You can use this to create subclasses 
+The [FindQueryBuilder class](#findquerybuilder) constructor function.  You can use this to create subclasses
 and whatnot.
 
 <br>
@@ -45,7 +45,7 @@ and whatnot.
  - [.registerFilter(boolean)](#registerfilterstring-function----findquerybuilder)
  - [.specialParameter(string, string)](#specialparameterstring-string----findquerybuilder)
  - [.build(object, [QueryBuilder])](#buildobject-querybuilder----querybuilder)
- 
+
 <br>
 
 ##### `new FindQueryBuilder(ObjectionModelConstructor)` -> `FindQueryBuilder`
@@ -74,7 +74,7 @@ function MyFindQueryBuilder() {
 FindQueryBuilder.extend(MyFindQueryBuilder);
 
 MyFindQueryBuilder.prototype.someCustomMethod = function () {
-  
+
 };
 ```
 
@@ -82,7 +82,7 @@ MyFindQueryBuilder.prototype.someCustomMethod = function () {
 
 ##### `.allowAll(boolean)` -> [FindQueryBuilder](#findquerybuilder)
 
-Allows all [property references](https://github.com/Vincit/objection-find#query-parameters). See 
+Allows all [property references](https://github.com/Vincit/objection-find#query-parameters). See
 [.allow(string|Array.<string>, ...)]() for allowing only a subset. This is `true` by default.
 
 ```js
@@ -95,7 +95,7 @@ findQueryBuilder.allowAll(false);
 
 Use this method to whitelist [property references](https://github.com/Vincit/objection-find#query-parameters).
 For security reasons it is sometimes important that the user cannot access some properties or relations of a
-model. By default all property references are allowed 
+model. By default all property references are allowed
 (see [.allowAll(boolean)](#allowallboolean----findquerybuilder)).
 
 ```js
@@ -108,13 +108,13 @@ findQueryBuilder.allow(['firstName', 'parent.firstName', 'pets.name']);
 
 ##### `allowEager(string)` -> [FindQueryBuilder](#findquerybuilder)
 
-Sets the eager expression allowed by the `eager` query parameter. Any subset of the allowed expression is accepted 
+Sets the eager expression allowed by the `eager` query parameter. Any subset of the allowed expression is accepted
 in the `eager` query parameters. For example setting the allowed expression to `a.b.c` expressions `a`, `a.b` and
 `a.b.c` are accepted int the `eager` query parameter.
 
-The eager expression is an objection.js 
-[relation expression](http://vincit.github.io/objection.js/RelationExpression.html). This method basically calls 
-the [QueryBuilder.allowEager(string)](http://vincit.github.io/objection.js/QueryBuilder.html#allowEager) method 
+The eager expression is an objection.js
+[relation expression](http://vincit.github.io/objection.js/RelationExpression.html). This method basically calls
+the [QueryBuilder.allowEager(string)](http://vincit.github.io/objection.js/QueryBuilder.html#allowEager) method
 of the underlying objection.js [QueryBuilder](http://vincit.github.io/objection.js/QueryBuilder.html).
 
 By default, any eager expression is allowed.
@@ -127,17 +127,17 @@ findQueryBuilder.allowEager('[movies, children.[movies, children]]');
 
 ##### `registerFilter(string, function)` -> [FindQueryBuilder](#findquerybuilder)
 
-Registers a filter function that can be used in 
+Registers a filter function that can be used in
 [filter query parameters](https://github.com/Vincit/objection-find#filters).
 
-Given a filter query parameter `someProp:eq=10` the `eq` part is the filter. The filter name (in this case 'eq') 
+Given a filter query parameter `someProp:eq=10` the `eq` part is the filter. The filter name (in this case 'eq')
 is mapped to a function that performs the filtering.
 
 Filter functions take in three arguments:
 
  1. `PropertyRef` instance of the property to be filtered
- 2. the filter value 
- 3. and the objection.js model class constructor 
+ 2. the filter value
+ 3. and the objection.js model class constructor
 
 The filter function must return an object `{method: string, args: *}`. For example:
 
@@ -146,7 +146,7 @@ function lowercaseEq(propertyRef, value, modelClass) {
   return {
     // Name of the filter method to be called on the objection.js query builder.
     method: 'where',
-    // The arguments to pass for the filter method. You can access the name of the 
+    // The arguments to pass for the filter method. You can access the name of the
     // column we are filtering through `propertyRef.fullColumnName()`.
     args: [propertyRef.fullColumnName(), '=', value.toLowerCase()]
   };
@@ -157,14 +157,12 @@ A better `lowercaseEq` would lowercase both sides of the comparison:
 
 ```js
 function lowercaseEq(propertyRef, value, modelClass) {
-  var formatter = modelClass.formatter();
-  // Always use `formatter.wrap` for column references when building raw queries.
-  var columnName = formatter.wrap(propertyRef.fullColumnName());
+  // Always use use knex columnization for column references when building raw queries to make sure column names are escaped.
 
   return {
     method: 'whereRaw',
     // Always escape the user input when building raw queries.
-    args: ['lower(' + columnName + ') = ?', value.toLowerCase()];
+    args: ['lower(??) like ?', [propertyRef.fullColumnName(), value.toLowerCase()]]
   };
 }
 ```
@@ -193,10 +191,10 @@ Now you could use your filter in the query parameters like this `someProperty:le
 
 ##### `specialParameter(string, string)` -> [FindQueryBuilder](#findquerybuilder)
 
-This can be used to rename a [special parameter](https://github.com/Vincit/objection-find#special-parameters) 
-for example if it collides with a property name. With the following example you can fetch relations eagerly 
+This can be used to rename a [special parameter](https://github.com/Vincit/objection-find#special-parameters)
+for example if it collides with a property name. With the following example you can fetch relations eagerly
 by giving a `withRelated=[pets, movies]` query parameter instead of `eager=[pets, movies]`.
- 
+
 ```js
 findQueryBuilder.specialParameter('eager', 'withRelated');
 ```
