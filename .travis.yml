@@ -4,6 +4,7 @@ language: node_js
 node_js:
   - '4'
   - '6'
+  - '8'
 
 before_script:
   - psql -c "create database objection_find_test;" -U postgres
