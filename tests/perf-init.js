@@ -1,12 +1,12 @@
 'use strict';
 
-var _ = require('lodash');
-var Promise = require('bluebird');
-var testUtils = require('./utils');
+const _ = require('lodash');
+const Promise = require('bluebird');
+const testUtils = require('./utils');
 
 Promise.all(
   _.map(testUtils.testDatabaseConfigs, function(dbConfig, i) {
-    var session = testUtils.initialize(dbConfig);
+    const session = testUtils.initialize(dbConfig);
 
     return testUtils
       .dropDb(session)
