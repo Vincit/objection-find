@@ -18,6 +18,13 @@
     "email": "sami.koskimaki@vincit.com",
     "url": "https://github.com/koskimas"
   },
+  "contributors": [
+    {
+      "name": "Igor Savin",
+      "email": "kibertoad@gmail.com",
+      "url": "https://github.com/kibertoad"
+    }
+  ],
   "repository": {
     "type": "git",
     "url": "git://github.com/vincit/objection-find.git"
