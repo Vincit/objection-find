@@ -1,7 +1,7 @@
 'use strict';
 
 const _ = require('lodash');
-const expect = require('expect.js');
+const expect = require('chai').expect;
 const testUtils = require('./utils');
 const objectionFind = require('../objection-find');
 
@@ -328,9 +328,9 @@ describe('integration tests', () => {
           it('should throw if trying to order by HasManyRelation relation properties', function() {
             expect(function() {
               objectionFind(Person).build({ orderBy: 'movies.name' });
-            }).to.throwException(function(err) {
-              expect(err.statusCode).to.equal(400);
-            });
+            })
+              .to.throw(Error)
+              .with.property('statusCode', 400);
           });
         });
 
@@ -404,9 +404,9 @@ describe('integration tests', () => {
               rangeStart: 'X',
               rangeEnd: '4'
             });
-          }).to.throwException(function(err) {
-            expect(err.statusCode).to.equal(400);
-          });
+          })
+            .to.throw(Error)
+            .with.property('statusCode', 400);
 
           expect(function() {
             objectionFind(Person).build({
@@ -414,9 +414,9 @@ describe('integration tests', () => {
               rangeStart: '2',
               rangeEnd: 'X'
             });
-          }).to.throwException(function(err) {
-            expect(err.statusCode).to.equal(400);
-          });
+          })
+            .to.throw(Error)
+            .with.property('statusCode', 400);
         });
       });
 
@@ -429,7 +429,7 @@ describe('integration tests', () => {
                 'movies.name': 'test',
                 orderBy: 'parent.firstName'
               });
-          }).to.not.throwException();
+          }).to.not.throw();
 
           expect(function() {
             objectionFind(Person)
@@ -440,7 +440,7 @@ describe('integration tests', () => {
                 'movies.name': 'test',
                 orderBy: 'parent.firstName'
               });
-          }).to.not.throwException();
+          }).to.not.throw();
         });
 
         it('should throw if using a property reference that is not allowed', function() {
@@ -448,17 +448,17 @@ describe('integration tests', () => {
             objectionFind(Person)
               .allow('firstName')
               .build({ lastName: 'test' });
-          }).to.throwException(function(err) {
-            expect(err.statusCode).to.equal(400);
-          });
+          })
+            .to.throw(Error)
+            .with.property('statusCode', 400);
 
           expect(function() {
             objectionFind(Person)
               .allow('firstName')
               .build({ orderBy: 'lastName' });
-          }).to.throwException(function(err) {
-            expect(err.statusCode).to.equal(400);
-          });
+          })
+            .to.throw(Error)
+            .with.property('statusCode', 400);
         });
       });
 
@@ -471,9 +471,9 @@ describe('integration tests', () => {
             })
             .then(function(result) {
               expect(result).to.have.length(1);
-              expect(result[0].parent).to.be.a(session.models.Person);
-              expect(result[0].parent.movies[0]).to.be.a(session.models.Movie);
-              expect(result[0].parent.pets[0]).to.be.a(session.models.Animal);
+              expect(result[0].parent).to.be.an.instanceof(session.models.Person);
+              expect(result[0].parent.movies[0]).to.be.an.instanceof(session.models.Movie);
+              expect(result[0].parent.pets[0]).to.be.an.instanceof(session.models.Animal);
             });
         });
 
@@ -486,14 +486,14 @@ describe('integration tests', () => {
             })
             .then(function(result) {
               expect(result).to.have.length(1);
-              expect(result[0].parent).to.be.a(session.models.Person);
-              expect(result[0].parent.movies[0]).to.be.a(session.models.Movie);
-              expect(result[0].parent.pets[0]).to.be.a(session.models.Animal);
+              expect(result[0].parent).to.be.an.instanceof(session.models.Person);
+              expect(result[0].parent.movies[0]).to.be.an.instanceof(session.models.Movie);
+              expect(result[0].parent.pets[0]).to.be.an.instanceof(session.models.Animal);
             });
         });
 
         it('should pass allowEager to the query builder', function(done) {
-          var findQuery = objectionFind(Person).allowEager('parent');
+          const findQuery = objectionFind(Person).allowEager('parent');
           expect(findQuery.allowEager()).to.equal('parent');
           findQuery
             .build({
@@ -548,43 +548,43 @@ describe('integration tests', () => {
         it('should fail if a property reference is invalid', function() {
           expect(function() {
             objectionFind(Person).build({ 'movies..name': 'test' });
-          }).to.throwException(function(err) {
-            expect(err.statusCode).to.equal(400);
-          });
+          })
+            .to.throw(Error)
+            .with.property('statusCode', 400);
 
           expect(function() {
             objectionFind(Person).build({ 'movies.name.length': 'test' });
-          }).to.throwException(function(err) {
-            expect(err.statusCode).to.equal(400);
-          });
+          })
+            .to.throw(Error)
+            .with.property('statusCode', 400);
 
           expect(function() {
             objectionFind(Person).build({ 'movies.': 'test' });
-          }).to.throwException(function(err) {
-            expect(err.statusCode).to.equal(400);
-          });
+          })
+            .to.throw(Error)
+            .with.property('statusCode', 400);
 
           expect(function() {
             objectionFind(Person).build({ 'movies.name::eq': 'test' });
-          }).to.throwException(function(err) {
-            expect(err.statusCode).to.equal(400);
-          });
+          })
+            .to.throw(Error)
+            .with.property('statusCode', 400);
         });
 
         it('should fail if relation is not found', function() {
           expect(function() {
             objectionFind(Person).build({ 'notValidRelation.name': 'test' });
-          }).to.throwException(function(err) {
-            expect(err.statusCode).to.equal(400);
-          });
+          })
+            .to.throw(Error)
+            .with.property('statusCode', 400);
         });
 
         it('should fail with invalid filter', function() {
           expect(function() {
             objectionFind(Person).build({ 'movies.name:invalidFilter': 'test' });
-          }).to.throwException(function(err) {
-            expect(err.statusCode).to.equal(400);
-          });
+          })
+            .to.throw(Error)
+            .with.property('statusCode', 400);
         });
       });
 

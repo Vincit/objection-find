@@ -1,20 +1,19 @@
 'use strict';
 
-var _ = require('lodash');
-var expect = require('expect.js');
-var Promise = require('bluebird');
-var testUtils = require('./utils');
-var objectionFind = require('../objection-find');
+const _ = require('lodash');
+const Promise = require('bluebird');
+const testUtils = require('./utils');
+const objectionFind = require('../objection-find');
 
-var N = 5;
-var session;
-var promise = Promise.resolve();
+const N = 5;
+let session;
+let promise = Promise.resolve();
 
 _.each(testUtils.testDatabaseConfigs, function(dbConfig) {
   promise = promise.then(function() {
     session = testUtils.initialize(dbConfig);
 
-    var testPromise = Promise.resolve();
+    let testPromise = Promise.resolve();
     _.times(N, function() {
       testPromise = testPromise.then(function() {
         return test(session);
