@@ -1,6 +1,6 @@
 {
   "name": "objection-find",
-  "version": "0.9.0",
+  "version": "1.0.0-rc.5",
   "description": "Build search queries for objection.js models using HTTP query parameters.",
   "main": "objection-find.js",
   "license": "MIT",
@@ -51,19 +51,19 @@
   "devDependencies": {
     "babel-eslint": "^8.2.1",
     "chai": "^4.1.2",
-    "coveralls": "^2",
-    "eslint": "^4.15.0",
+    "coveralls": "^3",
+    "eslint": "^4.16.0",
     "eslint-plugin-prettier": "^2.5.0",
     "istanbul": "^0.4",
     "knex": "^0.13",
     "mocha": "^3.5.3",
     "mysql": "^2",
-    "objection": "^0.9.4",
-    "pg": "^6",
+    "objection": "^1.0.0-rc.5",
+    "pg": "^7",
     "prettier": "^1.10.2",
     "sqlite3": "^3"
   },
   "peerDependencies": {
-    "objection": "^0.9.0"
+    "objection": ">= 0.9.0 || 1.0.0-rc.5"
   }
 }
