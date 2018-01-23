@@ -10,6 +10,8 @@
 
 # Introduction
 
+Note: since Objection.js (which this library is based on) now requires Node 6.0.0 as the minimum, objection-find will not work on node < 6.0.0 either.
+
 Objection-find is a module for building search queries for [objection.js](https://github.com/Vincit/objection.js/)
 models using HTTP query parameters. You can easily filter, order and page the result based on model's properties and
 relations using simple expressions. Relations can be eagerly fetched for the results using objection.js relation
