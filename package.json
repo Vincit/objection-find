@@ -45,25 +45,25 @@
     "lib/*"
   ],
   "dependencies": {
-    "bluebird": "^3",
-    "lodash": "^4"
+    "bluebird": "^3.5.1",
+    "lodash": "^4.17.5"
   },
   "devDependencies": {
     "babel-eslint": "^8.2.1",
     "chai": "^4.1.2",
     "coveralls": "^3",
-    "eslint": "^4.16.0",
-    "eslint-plugin-prettier": "^2.5.0",
+    "eslint": "^4.17.0",
+    "eslint-plugin-prettier": "^2.6.0",
     "istanbul": "^0.4",
     "knex": "^0.13",
-    "mocha": "^3.5.3",
+    "mocha": "3.5.3",
     "mysql": "^2",
-    "objection": "^1.0.0-rc.5",
+    "objection": "^1.0.0-rc.12",
     "pg": "^7",
     "prettier": "^1.10.2",
     "sqlite3": "^3"
   },
   "peerDependencies": {
-    "objection": ">= 0.9.0 || 1.0.0-rc.5"
+    "objection": ">= 0.9.0 || 1.0.0-rc.12"
   }
 }
