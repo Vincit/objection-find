@@ -1,6 +1,4 @@
 const _ = require('lodash');
-const os = require('os');
-const path = require('path');
 const Knex = require('knex');
 const Promise = require('bluebird');
 const objection = require('objection');

@@ -1,3 +1,6 @@
+const os = require('os');
+const path = require('path');
+
 const POSTGRESQL_CONFIG = Object.freeze({
   client: 'postgres',
   connection: {
