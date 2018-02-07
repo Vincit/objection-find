@@ -70,6 +70,9 @@ $http({
     // Fetch only count of entries that satisfy given criteria. Value can include optional alias parameter, e. g. 'id as countId'. '*' is a valid value.
     'count': 'id',
 
+    // Group fetched entries by specified properties. Primarily intended to be used together with 'count' parameter'.
+    'groupBy': 'firstName,lastName',
+
     // Select a range starting from index 0
     'rangeStart': 0,
 
