@@ -544,6 +544,19 @@ describe('integration tests', () => {
         });
       });
 
+      describe('count', function() {
+        it('should retrieve count for a given filter criteria', function() {
+          return objectionFind(Person)
+            .build({
+              'firstName:in': 'F01,F02,F05',
+              count: true
+            })
+            .then(([result]) => {
+              expect(result.count).to.equal('3');
+            });
+        });
+      });
+
       describe('parse errors', function() {
         it('should fail if a property reference is invalid', function() {
           expect(function() {
