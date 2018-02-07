@@ -549,10 +549,36 @@ describe('integration tests', () => {
           return objectionFind(Person)
             .build({
               'firstName:in': 'F01,F02,F05',
-              count: true
+              count: 'id'
             })
             .then(([result]) => {
-              expect(result.count).to.equal('3');
+              switch (knexConfig.client) {
+                case 'postgresql':
+                  expect(result.count).to.equal('3');
+                  break;
+                case 'sqlite3':
+                case 'mysql':
+                  expect(result['count("id")']).to.equal(3);
+              }
+            });
+        });
+
+        it('should retrieve count for a given filter criteria with alias', function() {
+          return objectionFind(Person)
+            .build({
+              'firstName:in': 'F01,F02,F05',
+              count: 'id as idCount'
+            })
+            .then(([result]) => {
+              switch (knexConfig.client) {
+                case 'postgresql':
+                  expect(result.idCount).to.equal('3');
+                  break;
+                case 'sqlite3':
+                case 'mysql':
+                  expect(result.idCount).to.equal(3);
+                  break;
+              }
             });
         });
       });
