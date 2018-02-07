@@ -1,6 +1,6 @@
 {
   "name": "objection-find",
-  "version": "1.0.0-rc.5",
+  "version": "1.0.0-rc.12",
   "description": "Build search queries for objection.js models using HTTP query parameters.",
   "main": "objection-find.js",
   "license": "MIT",
