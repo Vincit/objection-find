@@ -66,6 +66,9 @@ $http({
     // Fetch relations for the results. This is an objection.js
     // relation expression. Check out objection.js for more info.
     'eager': '[children, movies, parent.movies]',
+    
+    // Fetch only count of entries that satisfy given criteria
+    'count': 'true',
 
     // Select a range starting from index 0
     'rangeStart': 0,
