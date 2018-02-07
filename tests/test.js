@@ -557,8 +557,10 @@ describe('integration tests', () => {
                   expect(result.count).to.equal('3');
                   break;
                 case 'sqlite3':
-                case 'mysql':
                   expect(result['count("id")']).to.equal(3);
+                  break;
+                case 'mysql':
+                  expect(result['count(`id`)']).to.equal(3);
               }
             });
         });
