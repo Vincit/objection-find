@@ -1,17 +1,13 @@
 const _ = require('lodash');
+const os = require('os');
+const path = require('path');
 const Knex = require('knex');
 const Promise = require('bluebird');
 const objection = require('objection');
 
-const TestDatabaseConfigs = require('./TestDatabaseConfigs');
+const SCHEMA = 'test';
 
 module.exports = {
-  testDatabaseConfigs: [
-    TestDatabaseConfigs.SQLITE_CONFIG,
-    TestDatabaseConfigs.POSTGRESQL_CONFIG,
-    TestDatabaseConfigs.MYSQL_CONFIG
-  ],
-
   initialize: function(knexConfig) {
     const knex = Knex(knexConfig);
     return {
@@ -23,72 +19,80 @@ module.exports = {
 
   dropDb: function(session) {
     return session.knex.schema
-      .dropTableIfExists('Person_Movie')
-      .dropTableIfExists('Movie')
-      .dropTableIfExists('Animal')
-      .dropTableIfExists('Person');
+      .dropTableIfExists(`${SCHEMA}.Person_Movie`)
+      .dropTableIfExists(`${SCHEMA}.Movie`)
+      .dropTableIfExists(`${SCHEMA}.Animal`)
+      .dropTableIfExists(`${SCHEMA}.Person`);
   },
 
   createDb: function(session) {
-    return session.knex.schema
-      .createTableIfNotExists('Person', function(table) {
-        table
-          .bigincrements('id')
-          .unsigned()
-          .primary();
-        table.integer('age');
-        table
-          .biginteger('pid')
-          .unsigned()
-          .references('Person.id')
-          .index();
-        table.string('firstName');
-        table.string('lastName');
-      })
-      .createTableIfNotExists('Animal', function(table) {
-        table
-          .bigincrements('id')
-          .unsigned()
-          .primary();
-        table
-          .biginteger('ownerId')
-          .unsigned()
-          .references('Person.id')
-          .index();
-        table.string('name').index();
-      })
-      .createTableIfNotExists('Movie', function(table) {
-        table
-          .bigincrements('id')
-          .unsigned()
-          .primary();
-        table.string('name').index();
-      })
-      .createTableIfNotExists('Person_Movie', function(table) {
-        table
-          .bigincrements('id')
-          .unsigned()
-          .primary();
-        table
-          .biginteger('actorId')
-          .unsigned()
-          .references('Person.id')
-          .index();
-        table
-          .biginteger('movieId')
-          .unsigned()
-          .references('Movie.id')
-          .index();
+    return session.knex
+      .raw(`CREATE SCHEMA IF NOT EXISTS "${SCHEMA}"`)
+      .then(() => {
+        return session.knex.schema
+          .createTableIfNotExists(`${SCHEMA}.Person`, function(table) {
+            table
+              .bigincrements('id')
+              .unsigned()
+              .primary();
+            table.integer('age');
+            table
+              .biginteger('pid')
+              .unsigned()
+              .references('id')
+              .on(`${SCHEMA}.Person`)
+              .index();
+            table.string('firstName');
+            table.string('lastName');
+          })
+          .createTableIfNotExists(`${SCHEMA}.Animal`, function(table) {
+            table
+              .bigincrements('id')
+              .unsigned()
+              .primary();
+            table
+              .biginteger('ownerId')
+              .unsigned()
+              .references('id')
+              .on(`${SCHEMA}.Person`)
+              .index();
+            table.string('name').index();
+          })
+          .createTableIfNotExists(`${SCHEMA}.Movie`, function(table) {
+            table
+              .bigincrements('id')
+              .unsigned()
+              .primary();
+            table.string('name').index();
+          })
+          .createTableIfNotExists(`${SCHEMA}.Person_Movie`, function(table) {
+            table
+              .bigincrements('id')
+              .unsigned()
+              .primary();
+            table
+              .biginteger('actorId')
+              .unsigned()
+              .references('id')
+              .on(`${SCHEMA}.Person`)
+              .index();
+            table
+              .biginteger('movieId')
+              .unsigned()
+              .references('id')
+              .on(`${SCHEMA}.Movie`)
+              .index();
+          });
       })
       .then(function() {
         if (session.config.client === 'postgres') {
           // Index to speed up wildcard searches.
           return Promise.join(
             session.knex.raw(
-              'CREATE INDEX "movie_name_wildcard_index" ON "Movie" USING btree ("name" varchar_pattern_ops)'
+              `CREATE INDEX "movie_name_wildcard_index" ON ${SCHEMA}."Movie" USING btree ("name" varchar_pattern_ops)`
             ),
             session.knex.raw(
-              'CREATE INDEX "animal_name_wildcard_index" ON "Animal" USING btree ("name" varchar_pattern_ops)'
+              `CREATE INDEX "animal_name_wildcard_index" ON ${SCHEMA}."Animal" USING btree ("name" varchar_pattern_ops)`
             )
           );
         }
@@ -131,13 +135,13 @@ module.exports = {
     return Promise.all(
       _.map(_.chunk(persons, C), function(personChunk) {
         return session
-          .knex('Person')
+          .knex(`${SCHEMA}.Person`)
           .insert(pick(personChunk, ['id', 'firstName', 'lastName', 'age']));
       })
     )
       .then(function() {
         return session
-          .knex('Person')
+          .knex(`${SCHEMA}.Person`)
           .update('pid', session.knex.raw('id - 1'))
           .where('id', '>', 1);
       })
@@ -145,7 +149,7 @@ module.exports = {
         progress('1/4');
         return Promise.all(
           _.map(_.chunk(_.flatten(_.map(persons, 'pets')), C), function(animalChunk) {
-            return session.knex('Animal').insert(animalChunk);
+            return session.knex(`${SCHEMA}.Animal`).insert(animalChunk);
           })
         );
       })
@@ -153,7 +157,7 @@ module.exports = {
         progress('2/4');
         return Promise.all(
           _.map(_.chunk(_.flatten(_.map(persons, 'movies')), C), function(movieChunk) {
-            return session.knex('Movie').insert(movieChunk);
+            return session.knex(`${SCHEMA}.Movie`).insert(movieChunk);
           })
         );
       })
@@ -161,7 +165,7 @@ module.exports = {
         progress('3/4');
         return Promise.all(
           _.map(_.chunk(_.flatten(_.map(persons, 'personMovies')), C), function(movieChunk) {
-            return session.knex('Person_Movie').insert(movieChunk);
+            return session.knex(`${SCHEMA}.Person_Movie`).insert(movieChunk);
           })
         );
       })
@@ -174,17 +178,19 @@ module.exports = {
 function createModels(knex) {
   class Person extends objection.Model {
     static get tableName() {
-      return 'Person';
+      return `${SCHEMA}.Person`;
     }
   }
+
   class Animal extends objection.Model {
     static get tableName() {
-      return 'Animal';
+      return `${SCHEMA}.Animal`;
     }
   }
+
   class Movie extends objection.Model {
     static get tableName() {
-      return 'Movie';
+      return `${SCHEMA}.Movie`;
     }
   }
 
@@ -201,8 +207,8 @@ function createModels(knex) {
       relation: objection.BelongsToOneRelation,
       modelClass: Person,
       join: {
-        from: 'Person.pid',
-        to: 'Person.id'
+        from: `${SCHEMA}.Person.pid`,
+        to: `${SCHEMA}.Person.id`
       }
     },
 
@@ -210,8 +216,8 @@ function createModels(knex) {
       relation: objection.HasManyRelation,
       modelClass: Animal,
       join: {
-        from: 'Person.id',
-        to: 'Animal.ownerId'
+        from: `${SCHEMA}.Person.id`,
+        to: `${SCHEMA}.Animal.ownerId`
       }
     },
 
@@ -219,12 +225,12 @@ function createModels(knex) {
       relation: objection.ManyToManyRelation,
       modelClass: Movie,
       join: {
-        from: 'Person.id',
+        from: `${SCHEMA}.Person.id`,
         through: {
-          from: 'Person_Movie.actorId',
-          to: 'Person_Movie.movieId'
+          from: `${SCHEMA}.Person_Movie.actorId`,
+          to: `${SCHEMA}.Person_Movie.movieId`
         },
-        to: 'Movie.id'
+        to: `${SCHEMA}.Movie.id`
       }
     }
   };
