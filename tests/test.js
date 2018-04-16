@@ -607,6 +607,27 @@ describe('integration tests', () => {
             });
         });
 
+        it('should work correctly with an implicit eager retrieval for a nested search criteria', function() {
+          return objectionFind(Person)
+            .build({
+              'firstName:in': 'F01,F02,F05',
+              count: 'id as countId',
+              groupBy: 'firstName'
+            })
+            .then(result => {
+              expect(result.length).to.equal(3);
+              expect((result[0].countId = 1));
+              expect((result[1].countId = 1));
+              expect((result[2].countId = 1));
+              expect(result[0].firstName).to.be.a('string');
+              expect(result[1].firstName).to.be.a('string');
+              expect(result[2].firstName).to.be.a('string');
+              expect(result[0].lastName).to.be.a('undefined');
+              expect(result[1].lastName).to.be.a('undefined');
+              expect(result[2].lastName).to.be.a('undefined');
+            });
+        });
+
         it('should retrieve values for a given filter criteria grouped by field', function() {
           return objectionFind(Person)
             .build({
