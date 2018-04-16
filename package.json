@@ -5,7 +5,7 @@
   "main": "objection-find.js",
   "license": "MIT",
   "scripts": {
-    "test": "istanbul --config=.istanbul.yml cover _mocha -- --slow 10 --timeout 5000 --reporter spec tests/test.js",
+    "test": "istanbul --config=.istanbul.yml cover _mocha -- --slow 10 --timeout 7000 --reporter spec tests/test.js",
     "test-only": "mocha --slow 10 --timeout 50000 --reporter spec tests/test.js",
     "perf-test": "node tests/perf.js",
     "perf-test-init": "node tests/perf-init.js",
