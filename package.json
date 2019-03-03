@@ -5,7 +5,7 @@
   "main": "objection-find.js",
   "license": "MIT",
   "scripts": {
-    "test": "istanbul --config=.istanbul.yml cover _mocha -- --slow 10 --timeout 7000 --reporter spec tests/test.js",
+    "test": " nyc mocha mocha -- --slow 10 --timeout 7000 --reporter spec tests/test.js",
     "test-only": "mocha --slow 10 --timeout 50000 --reporter spec tests/test.js",
     "perf-test": "node tests/perf.js",
     "perf-test-init": "node tests/perf-init.js",
@@ -45,25 +45,31 @@
     "lib/*"
   ],
   "dependencies": {
-    "bluebird": "^3.5.1",
-    "lodash": "^4.17.5"
+    "bluebird": "^3.5.3",
+    "lodash": "^4.17.11"
   },
   "devDependencies": {
-    "babel-eslint": "^8.2.3",
-    "chai": "^4.1.2",
+    "babel-eslint": "^8.2.6",
+    "chai": "^4.2.0",
     "coveralls": "^3.0.0",
     "eslint": "^4.19.1",
-    "eslint-plugin-prettier": "^2.6.0",
-    "istanbul": "^0.4.5",
-    "knex": "^0.14.6",
+    "eslint-plugin-prettier": "^2.7.0",
+    "knex": "^0.16.3",
     "mocha": "3.5.3",
-    "mysql": "^2.15.0",
-    "objection": "^1.6.2",
-    "pg": "^7.4.1",
-    "prettier": "^1.12.0",
-    "sqlite3": "^4.0.0"
+    "mysql": "^2.16.0",
+    "nyc": "^13.3.0",
+    "objection": "^1.6.3",
+    "pg": "^7.8.1",
+    "prettier": "^1.16.4",
+    "sqlite3": "^4.0.6"
   },
   "peerDependencies": {
     "objection": ">= 1.0.0"
+  },
+  "nyc": {
+    "description": "test coverage",
+    "reporter": [
+      "text"
+    ]
   }
 }
