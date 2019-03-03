@@ -1,6 +1,6 @@
 {
   "name": "objection-find",
-  "version": "1.6.3",
+  "version": "1.6.4",
   "description": "Build search queries for objection.js models using HTTP query parameters.",
   "main": "objection-find.js",
   "license": "MIT",
@@ -64,7 +64,7 @@
     "sqlite3": "^4.0.6"
   },
   "peerDependencies": {
-    "objection": ">= 1.0.0"
+    "objection": ">= 1.2.3"
   },
   "nyc": {
     "description": "test coverage",
