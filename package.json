@@ -69,7 +69,9 @@
   "nyc": {
     "description": "test coverage",
     "reporter": [
+      "lcov",
       "text"
-    ]
+    ],
+    "report-dir": "./test-coverage"
   }
 }
