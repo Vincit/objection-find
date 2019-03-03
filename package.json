@@ -5,7 +5,7 @@
   "main": "objection-find.js",
   "license": "MIT",
   "scripts": {
-    "test": " nyc mocha mocha -- --slow 10 --timeout 7000 --reporter spec tests/test.js",
+    "test": "nyc mocha -- --slow 10 --timeout 7000 --reporter spec tests/test.js",
     "test-only": "mocha --slow 10 --timeout 50000 --reporter spec tests/test.js",
     "perf-test": "node tests/perf.js",
     "perf-test-init": "node tests/perf-init.js",
