@@ -46,7 +46,7 @@
   ],
   "dependencies": {
     "bluebird": "^3.5.1",
-    "lodash": "^4.17.5"
+    "lodash": "^4.17.15"
   },
   "devDependencies": {
     "babel-eslint": "^8.2.3",
@@ -58,10 +58,10 @@
     "knex": "^0.14.6",
     "mocha": "3.5.3",
     "mysql": "^2.15.0",
-    "objection": "^1.5.0",
+    "objection": "^1.6.3",
     "pg": "^7.4.1",
     "prettier": "^1.12.0",
-    "sqlite3": "^4.0.0"
+    "sqlite3": "^4.1.0"
   },
   "peerDependencies": {
     "objection": ">= 1.0.0"
