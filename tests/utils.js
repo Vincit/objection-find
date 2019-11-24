@@ -229,6 +229,17 @@ function createModels(knex) {
     }
   };
 
+  Animal.relationMappings = {
+    owner: {
+      relation: objection.BelongsToOneRelation,
+      modelClass: Person,
+      join: {
+        from: 'Animal.ownerId',
+        to: 'Person.id'
+      }
+    }
+  }
+
   return {
     Person: Person,
     Animal: Animal,

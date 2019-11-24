@@ -4,6 +4,7 @@ const _ = require('lodash');
 const expect = require('chai').expect;
 const testUtils = require('./utils');
 const objectionFind = require('../objection-find');
+const { Model } = require('objection');
 
 describe('integration tests', () => {
   _.each(testUtils.testDatabaseConfigs, knexConfig => {
@@ -356,6 +357,23 @@ describe('integration tests', () => {
                 expect(_.map(result, 'lastName')).to.contain('L09');
               });
           });
+
+          it('should order a column alias in ascending order', function() {
+            return objectionFind(Animal)
+              .build({
+                orderByAsc: ['owner:parent:lastName'],
+                eager: 'owner.[parent]'
+              })
+              .eagerAlgorithm(Model.JoinEagerAlgorithm)
+              .then(function(result) {
+                const names = _.map(_.reject(result, pet => _.includes(pet.name, 'P0')), 'name')
+                // P99 should be within the first 10 pets
+                expect(_.slice(names, 0, 10)).to.contain('P99')
+                // P10 should be within the last 10 pets
+                expect(_.slice(names, names.length-10, names.length)).to.contain('P10')
+                expect(_.map(result, 'name')).to.contain('P00')
+              })
+          })
         });
 
         describe('orderByDesc', function() {
@@ -380,6 +398,23 @@ describe('integration tests', () => {
                 expect(_.map(result, 'firstName')).to.contain('F00');
               });
           });
+
+          it('should order a column alias in descending order', function() {
+            return objectionFind(Animal)
+              .build({
+                orderByDesc: ['owner:parent:lastName'],
+                eager: 'owner.[parent]'
+              })
+              .eagerAlgorithm(Model.JoinEagerAlgorithm)
+              .then(function(result) {
+                const names = _.map(_.reject(result, pet => _.includes(pet.name, 'P0')), 'name')
+                // P10 should be within the first 10 pets
+                expect(_.slice(names, 0, 10)).to.contain('P10')
+                // P99 should be within the last 10 pets
+                expect(_.slice(names, names.length-10, names.length)).to.contain('P99')
+                expect(_.map(result, 'name')).to.contain('P00')
+              })
+          })
         });
       });
 
