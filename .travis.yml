@@ -1,11 +1,10 @@
-# .travis.yml
 language: node_js
 
 node_js:
   - '6'
   - '8'
   - '10'
-  - '11'
+  - '12'
 
 before_script:
   - psql -c "create database objection_find_test;" -U postgres
@@ -16,6 +15,9 @@ after_script:
 
 notifications:
   email: false
+
+services:
+  - mysql
 
 addons:
   postgresql: '9.6'
