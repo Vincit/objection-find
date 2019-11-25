@@ -39,6 +39,7 @@
     "query parameter"
   ],
   "files": [
+    "API.md",
     "README.md",
     "LICENSE",
     "objection-find.js",
