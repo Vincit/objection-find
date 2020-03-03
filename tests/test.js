@@ -85,6 +85,29 @@ describe('integration tests', () => {
           });
         });
 
+        describe('neq', () => {
+          it('should filter using <> operator', () => {
+            return objectionFind(Person)
+              .build({
+                'firstName:neq': 'F01'
+              })
+              .then(results => {
+                // Everything except 'F01'
+                expect(results.map(result => result.firstName).sort()).to.eql([
+                  'F00',
+                  'F02',
+                  'F03',
+                  'F04',
+                  'F05',
+                  'F06',
+                  'F07',
+                  'F08',
+                  'F09'
+                ]);
+              });
+          })
+        });
+
         describe('lt', function() {
           it('should filter using < operator', function() {
             return objectionFind(Person)
