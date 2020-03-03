@@ -146,7 +146,7 @@ A filter parameter has the following format:
 A `propertyReference` is either simply a property name like `firstName` or a reference to a relation's property like
 `children.age` (`children` is the name of the relation).
 
-`filter` is one of the built-in filters `eq`, `lt`, `lte`, `gt`, `gte`, `like`, `likeLower` `in`, `notNull` or `isNull`.
+`filter` is one of the built-in filters `eq`, `neq`, `lt`, `lte`, `gt`, `gte`, `like`, `likeLower` `in`, `notNull` or `isNull`.
 Filter can also be a custom filter registered using the `registerFilter` method.
 
 The following examples explain how filter parameters work. For the examples, assume we have an objection.js model
