@@ -44,6 +44,7 @@ module.exports = {
           .index();
         table.string('firstName');
         table.string('lastName');
+        table.integer('group');
       })
       .createTableIfNotExists('Animal', function(table) {
         table
@@ -110,6 +111,7 @@ module.exports = {
         firstName: 'F' + zeroPad(p),
         lastName: 'L' + zeroPad(P - p - 1),
         age: p * 10,
+        group: p % 3,
 
         pets: _.times(A, function(a) {
           const id = p * A + a + 1;
@@ -132,7 +134,7 @@ module.exports = {
       _.map(_.chunk(persons, C), function(personChunk) {
         return session
           .knex('Person')
-          .insert(pick(personChunk, ['id', 'firstName', 'lastName', 'age']));
+          .insert(pick(personChunk, ['id', 'firstName', 'lastName', 'age', 'group']));
       })
     )
       .then(function() {

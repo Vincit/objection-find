@@ -35,18 +35,22 @@ describe('integration tests', () => {
        *   Each person is an actor in 10 Movies `M00`, `M01`, `M02`, ...
        *     First person has movies 0 - 9, second 10 - 19 etc.
        *
-       * name    | parent  | pets      | movies
-       * --------+---------+-----------+----------
-       * F00 L09 | null    | P00 - P09 | M99 - M90
-       * F01 L08 | F00 L09 | P10 - P19 | M89 - M80
-       * F02 L07 | F01 L08 | P20 - P29 | M79 - M79
-       * F03 L06 | F02 L07 | P30 - P39 | M69 - M60
-       * F04 L05 | F03 L06 | P40 - P49 | M59 - M50
-       * F05 L04 | F04 L05 | P50 - P59 | M49 - M40
-       * F06 L03 | F05 L04 | P60 - P69 | M39 - M30
-       * F07 L02 | F06 L03 | P70 - P79 | M29 - M20
-       * F08 L01 | F07 L02 | P80 - P89 | M19 - M10
-       * F09 L00 | F08 L01 | P90 - P99 | M09 - M00
+       *   Each person is in one of three groups, `0`, `1` or `2`.
+       *     First, second and third persons are in groups `0`, `1` and `2`. Fourth person is in group `0`
+       *     and this pattern repeats.
+       *
+       * name    | parent  | pets      | movies    | group
+       * --------+---------+-----------+-----------+------
+       * F00 L09 | null    | P00 - P09 | M99 - M90 | 0
+       * F01 L08 | F00 L09 | P10 - P19 | M89 - M80 | 1
+       * F02 L07 | F01 L08 | P20 - P29 | M79 - M79 | 2
+       * F03 L06 | F02 L07 | P30 - P39 | M69 - M60 | 0
+       * F04 L05 | F03 L06 | P40 - P49 | M59 - M50 | 1
+       * F05 L04 | F04 L05 | P50 - P59 | M49 - M40 | 2
+       * F06 L03 | F05 L04 | P60 - P69 | M39 - M30 | 0
+       * F07 L02 | F06 L03 | P70 - P79 | M29 - M20 | 1
+       * F08 L01 | F07 L02 | P80 - P89 | M19 - M10 | 2
+       * F09 L00 | F08 L01 | P90 - P99 | M09 - M00 | 0
        */
       before(() => testUtils.insertData(session, { persons: 10, pets: 10, movies: 10 }));
 
@@ -397,6 +401,27 @@ describe('integration tests', () => {
                 expect(_.map(result, 'name')).to.contain('P00')
               })
           })
+
+          it('should order by multiple columns in ascending order', function() {
+            return objectionFind(Person)
+              .build({
+                orderByAsc: 'group|lastName'
+              })
+              .then(function(result) {
+                expect(_.invokeMap(result, 'fullName')).to.eql([
+                  'F09 L00',
+                  'F06 L03',
+                  'F03 L06',
+                  'F00 L09',
+                  'F07 L02',
+                  'F04 L05',
+                  'F01 L08',
+                  'F08 L01',
+                  'F05 L04',
+                  'F02 L07'
+                ]);
+              });
+          });
         });
 
         describe('orderByDesc', function() {
@@ -438,6 +463,27 @@ describe('integration tests', () => {
                 expect(_.map(result, 'name')).to.contain('P00')
               })
           })
+
+          it('should order by multiple columns in descending order', function() {
+            return objectionFind(Person)
+              .build({
+                orderByDesc: 'group|lastName'
+              })
+              .then(function(result) {
+                expect(_.invokeMap(result, 'fullName')).to.eql([
+                  'F02 L07',
+                  'F05 L04',
+                  'F08 L01',
+                  'F01 L08',
+                  'F04 L05',
+                  'F07 L02',
+                  'F00 L09',
+                  'F03 L06',
+                  'F06 L03',
+                  'F09 L00'
+                ]);
+              });
+          });
         });
       });
 
