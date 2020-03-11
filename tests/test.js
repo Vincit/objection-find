@@ -105,7 +105,7 @@ describe('integration tests', () => {
                   'F09'
                 ]);
               });
-          })
+          });
         });
 
         describe('lt', function() {
