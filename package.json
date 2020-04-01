@@ -47,11 +47,11 @@
     "lib/*"
   ],
   "dependencies": {
-    "bluebird": "^3.7.1",
     "lodash": "^4.17.15"
   },
   "devDependencies": {
     "babel-eslint": "^10.0.3",
+    "bluebird": "^3.7.2",
     "chai": "^4.2.0",
     "coveralls": "^3.0.8",
     "eslint": "^5.16.0",
