@@ -9,9 +9,10 @@
     "test-only": "mocha --slow 10 --timeout 50000 --reporter spec tests/test.js",
     "perf-test": "node tests/perf.js",
     "perf-test-init": "node tests/perf-init.js",
+    "test:ci": "npm run lint && npm run test",
     "coveralls": "cat ./test-coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
     "prettier": "prettier --write \"{lib,tests}/**/*.{js,ts}\"",
-    "eslint": "eslint --format codeframe \"lib/**/*.js\" \"tests/**/*.js\""
+    "lint": "eslint --format codeframe \"lib/**/*.js\" \"tests/**/*.js\""
   },
   "author": {
     "name": "Sami Koskimäki",
