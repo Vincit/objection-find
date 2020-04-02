@@ -180,5 +180,6 @@ In addition to the filter parameters, there is a set of query parameters that ha
 | `eager=[children, parent.movies]` | Which relations to fetch eagerly for the result models. An objection.js relation expression.             |
 | `orderBy=firstName`               | Sort the result by certain property.                                                                     |
 | `orderByDesc=firstName`           | Sort the result by certain property in descending order.                                                 |
+| `orderByAsc=group\|lastName`      | Sort the result by more than one property in ascending order.                                            |
 | `rangeStart=10`                   | The start of the result range (inclusive). The result will be `{total: 12343, results: [ ... ]}`.        |
 | `rangeEnd=50`                     | The end of the result range (inclusive). The result will be `{total: 12343, results: [ ... ]}`.          |
