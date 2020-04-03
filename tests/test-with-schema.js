@@ -51,8 +51,8 @@ describe('integration tests with schema', () => {
 
     before(() => testUtils.insertData(session, { persons: 10, pets: 10, movies: 10 }));
 
-    describe('mixtures', function() {
-      it('everything at once', function() {
+    describe('mixtures', function () {
+      it('everything at once', function () {
         return objectionFind(Person)
           .build({
             'firstName:like': 'F%',
@@ -62,14 +62,14 @@ describe('integration tests with schema', () => {
             orderBy: 'parent.lastName',
             eager: 'parent',
             rangeStart: 2,
-            rangeEnd: 4
+            rangeEnd: 4,
           })
-          .then(function(result) {
+          .then(function (result) {
             expect(result.total).to.equal(4);
             expect(_.map(result.results, 'lastName')).to.eql([/*'L02', 'L03', */ 'L04', 'L05']);
             expect(_.map(result.results, 'parent.lastName')).to.eql([
               /*'L03', 'L04', */ 'L05',
-              'L06'
+              'L06',
             ]);
           });
       });

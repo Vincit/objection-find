@@ -7,7 +7,7 @@ const objectionFind = require('../objection-find');
 const { Model } = require('objection');
 
 describe('integration tests', () => {
-  _.each(testUtils.testDatabaseConfigs, knexConfig => {
+  _.each(testUtils.testDatabaseConfigs, (knexConfig) => {
     describe(knexConfig.client, () => {
       let session, knex, Person, Animal, Movie;
 
@@ -55,9 +55,9 @@ describe('integration tests', () => {
           it('should filter using `where in', () => {
             return objectionFind(Person)
               .build({
-                'firstName:in': 'F01,F02,F05'
+                'firstName:in': 'F01,F02,F05',
               })
-              .then(result => {
+              .then((result) => {
                 expect(_.map(result, 'firstName').sort()).to.eql(['F01', 'F02', 'F05']);
               });
           });
@@ -67,19 +67,19 @@ describe('integration tests', () => {
           it('should filter using = operator', () => {
             return objectionFind(Person)
               .build({
-                'firstName:eq': 'F01'
+                'firstName:eq': 'F01',
               })
-              .then(result => {
+              .then((result) => {
                 expect(_.invokeMap(result, 'fullName').sort()).to.eql(['F01 L08']);
               });
           });
 
-          it('should default to `eq` when no filter is given', function() {
+          it('should default to `eq` when no filter is given', function () {
             return objectionFind(Person)
               .build({
-                firstName: 'F01'
+                firstName: 'F01',
               })
-              .then(function(result) {
+              .then(function (result) {
                 expect(_.invokeMap(result, 'fullName').sort()).to.eql(['F01 L08']);
               });
           });
@@ -89,11 +89,11 @@ describe('integration tests', () => {
           it('should filter using <> operator', () => {
             return objectionFind(Person)
               .build({
-                'firstName:neq': 'F01'
+                'firstName:neq': 'F01',
               })
-              .then(results => {
+              .then((results) => {
                 // Everything except 'F01'
-                expect(results.map(result => result.firstName).sort()).to.eql([
+                expect(results.map((result) => result.firstName).sort()).to.eql([
                   'F00',
                   'F02',
                   'F03',
@@ -102,140 +102,140 @@ describe('integration tests', () => {
                   'F06',
                   'F07',
                   'F08',
-                  'F09'
+                  'F09',
                 ]);
               });
-          })
+          });
         });
 
-        describe('lt', function() {
-          it('should filter using < operator', function() {
+        describe('lt', function () {
+          it('should filter using < operator', function () {
             return objectionFind(Person)
               .build({
                 // Since the numbering in firstName and lastName go to opposite directions
                 // this should return F03 L06, F04 L05 and F05 L04
                 'firstName:lt': 'F06',
-                'lastName:lt': 'L07'
+                'lastName:lt': 'L07',
               })
-              .then(function(result) {
+              .then(function (result) {
                 expect(_.invokeMap(result, 'fullName').sort()).to.eql([
                   'F03 L06',
                   'F04 L05',
-                  'F05 L04'
+                  'F05 L04',
                 ]);
               });
           });
         });
 
-        describe('lte', function() {
-          it('should filter using <= operator', function() {
+        describe('lte', function () {
+          it('should filter using <= operator', function () {
             return objectionFind(Person)
               .build({
                 // Since the numbering in firstName and lastName go to opposite directions
                 // this should return "F02 L07", "F03 L06", "F04 L05", "F05 L04" and "F06 L03"
                 'firstName:lte': 'F06',
-                'lastName:lte': 'L07'
+                'lastName:lte': 'L07',
               })
-              .then(function(result) {
+              .then(function (result) {
                 expect(_.invokeMap(result, 'fullName').sort()).to.eql([
                   'F02 L07',
                   'F03 L06',
                   'F04 L05',
                   'F05 L04',
-                  'F06 L03'
+                  'F06 L03',
                 ]);
               });
           });
         });
 
-        describe('gt', function() {
-          it('should filter using > operator', function() {
+        describe('gt', function () {
+          it('should filter using > operator', function () {
             return objectionFind(Person)
               .build({
                 // Since the numbering in firstName and lastName go to opposite directions
                 // this should return F04 L05 and F05 L04
                 'firstName:gt': 'F03',
-                'lastName:gt': 'L03'
+                'lastName:gt': 'L03',
               })
-              .then(function(result) {
+              .then(function (result) {
                 expect(_.invokeMap(result, 'fullName').sort()).to.eql(['F04 L05', 'F05 L04']);
               });
           });
         });
 
-        describe('gte', function() {
-          it('should filter using >= operator', function() {
+        describe('gte', function () {
+          it('should filter using >= operator', function () {
             return objectionFind(Person)
               .build({
                 // Since the numbering in firstName and lastName go to opposite directions
                 // this should return F03 L06, F04 L05, F05 L04 and F06 L03
                 'firstName:gte': 'F03',
-                'lastName:gte': 'L03'
+                'lastName:gte': 'L03',
               })
-              .then(function(result) {
+              .then(function (result) {
                 expect(_.invokeMap(result, 'fullName').sort()).to.eql([
                   'F03 L06',
                   'F04 L05',
                   'F05 L04',
-                  'F06 L03'
+                  'F06 L03',
                 ]);
               });
           });
         });
 
-        describe('like', function() {
-          it('should filter using `like` operator', function() {
+        describe('like', function () {
+          it('should filter using `like` operator', function () {
             return objectionFind(Person)
               .build({
-                'firstName:like': '%03%'
+                'firstName:like': '%03%',
               })
-              .then(function(result) {
+              .then(function (result) {
                 expect(_.invokeMap(result, 'fullName').sort()).to.eql(['F03 L06']);
               });
           });
 
-          it('should filter using `like` operator from multiple columns', function() {
+          it('should filter using `like` operator from multiple columns', function () {
             return objectionFind(Person)
               .build({
-                'firstName|lastName:like': '%03%'
+                'firstName|lastName:like': '%03%',
               })
-              .then(function(result) {
+              .then(function (result) {
                 expect(_.invokeMap(result, 'fullName').sort()).to.eql(['F03 L06', 'F06 L03']);
               });
           });
         });
 
-        describe('likeLower', function() {
-          it('should filter using `lower(col) like lower(value)`', function() {
+        describe('likeLower', function () {
+          it('should filter using `lower(col) like lower(value)`', function () {
             return objectionFind(Person)
               .build({
-                'firstName:likeLower': 'f03%'
+                'firstName:likeLower': 'f03%',
               })
-              .then(function(result) {
+              .then(function (result) {
                 expect(_.invokeMap(result, 'fullName').sort()).to.eql(['F03 L06']);
               });
           });
         });
 
-        describe('isNull', function() {
-          it('should filter using `is null`', function() {
+        describe('isNull', function () {
+          it('should filter using `is null`', function () {
             return objectionFind(Person)
               .build({
-                'pid:isNull': ''
+                'pid:isNull': '',
               })
-              .then(function(result) {
+              .then(function (result) {
                 expect(_.invokeMap(result, 'fullName').sort()).to.eql(['F00 L09']);
               });
           });
         });
 
-        describe('notNull', function() {
-          it('should filter using `is not null`', function() {
+        describe('notNull', function () {
+          it('should filter using `is not null`', function () {
             return objectionFind(Person)
               .build({
-                'pid:notNull': ''
+                'pid:notNull': '',
               })
-              .then(function(result) {
+              .then(function (result) {
                 expect(_.invokeMap(result, 'fullName').sort()).to.eql([
                   'F01 L08',
                   'F02 L07',
@@ -245,41 +245,41 @@ describe('integration tests', () => {
                   'F06 L03',
                   'F07 L02',
                   'F08 L01',
-                  'F09 L00'
+                  'F09 L00',
                 ]);
               });
           });
         });
       });
 
-      describe('relations', function() {
-        describe('one to one relation', function() {
-          it("should return persons whose parent's firstName equals the given string", function() {
+      describe('relations', function () {
+        describe('one to one relation', function () {
+          it("should return persons whose parent's firstName equals the given string", function () {
             return objectionFind(Person)
               .build({
-                'parent.firstName': 'F00'
+                'parent.firstName': 'F00',
               })
-              .then(function(result) {
+              .then(function (result) {
                 expect(_.invokeMap(result, 'fullName').sort()).to.eql(['F01 L08']);
               });
           });
 
-          it("should return persons whose parent's firstName or lastName match the given pattern", function() {
+          it("should return persons whose parent's firstName or lastName match the given pattern", function () {
             return objectionFind(Person)
               .build({
-                'parent.firstName|parent.lastName:like': '%01%'
+                'parent.firstName|parent.lastName:like': '%01%',
               })
-              .then(function(result) {
+              .then(function (result) {
                 expect(_.invokeMap(result, 'fullName').sort()).to.eql(['F02 L07', 'F09 L00']);
               });
           });
 
-          it('should return all persons that have a parent', function() {
+          it('should return all persons that have a parent', function () {
             return objectionFind(Person)
               .build({
-                'parent.id:notNull': ''
+                'parent.id:notNull': '',
               })
-              .then(function(result) {
+              .then(function (result) {
                 expect(_.invokeMap(result, 'fullName').sort()).to.eql([
                   'F01 L08',
                   'F02 L07',
@@ -289,51 +289,51 @@ describe('integration tests', () => {
                   'F06 L03',
                   'F07 L02',
                   'F08 L01',
-                  'F09 L00'
+                  'F09 L00',
                 ]);
               });
           });
         });
 
-        describe('one to many relation', function() {
-          it('should return all persons who have a pet whose name > P55 and also have a pet whose name < P60', function() {
+        describe('one to many relation', function () {
+          it('should return all persons who have a pet whose name > P55 and also have a pet whose name < P60', function () {
             return objectionFind(Person)
               .build({
                 'pets.name:gt': 'P55',
-                'pets.name:lt': 'P60'
+                'pets.name:lt': 'P60',
               })
-              .then(function(result) {
+              .then(function (result) {
                 expect(_.invokeMap(result, 'fullName').sort()).to.eql(['F05 L04']);
               });
           });
         });
 
-        describe('many to many relation', function() {
-          it('should return all persons who have a movie whose name > M10 and also have a movie whose name < M40', function() {
+        describe('many to many relation', function () {
+          it('should return all persons who have a movie whose name > M10 and also have a movie whose name < M40', function () {
             return objectionFind(Person)
               .build({
                 'movies.name:gt': 'M10',
-                'movies.name:lt': 'M40'
+                'movies.name:lt': 'M40',
               })
-              .then(function(result) {
+              .then(function (result) {
                 expect(_.invokeMap(result, 'fullName').sort()).to.eql([
                   'F06 L03',
                   'F07 L02',
-                  'F08 L01'
+                  'F08 L01',
                 ]);
               });
           });
         });
       });
 
-      describe('ordering', function() {
-        describe('orderBy', function() {
-          it('should order by a property in ascending order', function() {
+      describe('ordering', function () {
+        describe('orderBy', function () {
+          it('should order by a property in ascending order', function () {
             return objectionFind(Person)
               .build({
-                orderBy: 'lastName'
+                orderBy: 'lastName',
               })
-              .then(function(result) {
+              .then(function (result) {
                 expect(_.map(result, 'lastName')).to.eql([
                   'L00',
                   'L01',
@@ -344,13 +344,13 @@ describe('integration tests', () => {
                   'L06',
                   'L07',
                   'L08',
-                  'L09'
+                  'L09',
                 ]);
               });
           });
 
-          it('should throw if trying to order by HasManyRelation relation properties', function() {
-            expect(function() {
+          it('should throw if trying to order by HasManyRelation relation properties', function () {
+            expect(function () {
               objectionFind(Person).build({ orderBy: 'movies.name' });
             })
               .to.throw(Error)
@@ -358,13 +358,13 @@ describe('integration tests', () => {
           });
         });
 
-        describe('orderByAsc', function() {
-          it('should order by a property in ascending order', function() {
+        describe('orderByAsc', function () {
+          it('should order by a property in ascending order', function () {
             return objectionFind(Person)
               .build({
-                orderByAsc: ['parent.lastName']
+                orderByAsc: ['parent.lastName'],
               })
-              .then(function(result) {
+              .then(function (result) {
                 // L09 doesn't have a parent, so it comes first or last depending on the database.
                 expect(_.without(_.map(result, 'lastName'), 'L09')).to.eql([
                   'L00',
@@ -375,37 +375,40 @@ describe('integration tests', () => {
                   'L05',
                   'L06',
                   'L07',
-                  'L08'
+                  'L08',
                 ]);
                 expect(_.map(result, 'lastName')).to.contain('L09');
               });
           });
 
-          it('should order a column alias in ascending order', function() {
+          it('should order a column alias in ascending order', function () {
             return objectionFind(Animal)
               .build({
                 orderByAsc: ['owner:parent:lastName'],
-                eager: 'owner.[parent]'
+                eager: 'owner.[parent]',
               })
               .eagerAlgorithm(Model.JoinEagerAlgorithm)
-              .then(function(result) {
-                const names = _.map(_.reject(result, pet => _.includes(pet.name, 'P0')), 'name')
+              .then(function (result) {
+                const names = _.map(
+                  _.reject(result, (pet) => _.includes(pet.name, 'P0')),
+                  'name'
+                );
                 // P99 should be within the first 10 pets
-                expect(_.slice(names, 0, 10)).to.contain('P99')
+                expect(_.slice(names, 0, 10)).to.contain('P99');
                 // P10 should be within the last 10 pets
-                expect(_.slice(names, names.length-10, names.length)).to.contain('P10')
-                expect(_.map(result, 'name')).to.contain('P00')
-              })
-          })
+                expect(_.slice(names, names.length - 10, names.length)).to.contain('P10');
+                expect(_.map(result, 'name')).to.contain('P00');
+              });
+          });
         });
 
-        describe('orderByDesc', function() {
-          it('should order by a property in descending order', function() {
+        describe('orderByDesc', function () {
+          it('should order by a property in descending order', function () {
             return objectionFind(Person)
               .build({
-                orderByDesc: 'parent.firstName'
+                orderByDesc: 'parent.firstName',
               })
-              .then(function(result) {
+              .then(function (result) {
                 // F00 doesn't have a parent, so it comes first or last depending on the database.
                 expect(_.without(_.map(result, 'firstName'), 'F00')).to.eql([
                   'F09',
@@ -416,61 +419,64 @@ describe('integration tests', () => {
                   'F04',
                   'F03',
                   'F02',
-                  'F01'
+                  'F01',
                 ]);
                 expect(_.map(result, 'firstName')).to.contain('F00');
               });
           });
 
-          it('should order a column alias in descending order', function() {
+          it('should order a column alias in descending order', function () {
             return objectionFind(Animal)
               .build({
                 orderByDesc: ['owner:parent:lastName'],
-                eager: 'owner.[parent]'
+                eager: 'owner.[parent]',
               })
               .eagerAlgorithm(Model.JoinEagerAlgorithm)
-              .then(function(result) {
-                const names = _.map(_.reject(result, pet => _.includes(pet.name, 'P0')), 'name')
+              .then(function (result) {
+                const names = _.map(
+                  _.reject(result, (pet) => _.includes(pet.name, 'P0')),
+                  'name'
+                );
                 // P10 should be within the first 10 pets
-                expect(_.slice(names, 0, 10)).to.contain('P10')
+                expect(_.slice(names, 0, 10)).to.contain('P10');
                 // P99 should be within the last 10 pets
-                expect(_.slice(names, names.length-10, names.length)).to.contain('P99')
-                expect(_.map(result, 'name')).to.contain('P00')
-              })
-          })
+                expect(_.slice(names, names.length - 10, names.length)).to.contain('P99');
+                expect(_.map(result, 'name')).to.contain('P00');
+              });
+          });
         });
       });
 
-      describe('range', function() {
-        it('should only select the given range', function() {
+      describe('range', function () {
+        it('should only select the given range', function () {
           return objectionFind(Person)
             .build({
               'firstName:gte': 'F04',
               rangeStart: '2',
-              rangeEnd: '4'
+              rangeEnd: '4',
             })
-            .then(function(result) {
+            .then(function (result) {
               expect(result.total).to.equal(6);
               expect(_.map(result.results, 'firstName')).to.eql(['F06', 'F07', 'F08']);
             });
         });
 
-        it('should throw if rangeStart or rangeEnd cannot be parsed to integer', function() {
-          expect(function() {
+        it('should throw if rangeStart or rangeEnd cannot be parsed to integer', function () {
+          expect(function () {
             objectionFind(Person).build({
               'firstName:gte': 'F04',
               rangeStart: 'X',
-              rangeEnd: '4'
+              rangeEnd: '4',
             });
           })
             .to.throw(Error)
             .with.property('statusCode', 400);
 
-          expect(function() {
+          expect(function () {
             objectionFind(Person).build({
               'firstName:gte': 'F04',
               rangeStart: '2',
-              rangeEnd: 'X'
+              rangeEnd: 'X',
             });
           })
             .to.throw(Error)
@@ -478,56 +484,50 @@ describe('integration tests', () => {
         });
       });
 
-      describe('allow', function() {
-        it('should not throw is only allowed properties are used', function() {
-          expect(function() {
-            objectionFind(Person)
-              .allow('parent.firstName', 'movies.name')
-              .build({
-                'movies.name': 'test',
-                orderBy: 'parent.firstName'
-              });
+      describe('allow', function () {
+        it('should not throw is only allowed properties are used', function () {
+          expect(function () {
+            objectionFind(Person).allow('parent.firstName', 'movies.name').build({
+              'movies.name': 'test',
+              orderBy: 'parent.firstName',
+            });
           }).to.not.throw();
 
-          expect(function() {
+          expect(function () {
             objectionFind(Person)
               .allow('parent.firstName')
               // This should allow everything again.
               .allowAll(true)
               .build({
                 'movies.name': 'test',
-                orderBy: 'parent.firstName'
+                orderBy: 'parent.firstName',
               });
           }).to.not.throw();
         });
 
-        it('should throw if using a property reference that is not allowed', function() {
-          expect(function() {
-            objectionFind(Person)
-              .allow('firstName')
-              .build({ lastName: 'test' });
+        it('should throw if using a property reference that is not allowed', function () {
+          expect(function () {
+            objectionFind(Person).allow('firstName').build({ lastName: 'test' });
           })
             .to.throw(Error)
             .with.property('statusCode', 400);
 
-          expect(function() {
-            objectionFind(Person)
-              .allow('firstName')
-              .build({ orderBy: 'lastName' });
+          expect(function () {
+            objectionFind(Person).allow('firstName').build({ orderBy: 'lastName' });
           })
             .to.throw(Error)
             .with.property('statusCode', 400);
         });
       });
 
-      describe('eager', function() {
-        it('should pass eager expression to the query builder', function() {
+      describe('eager', function () {
+        it('should pass eager expression to the query builder', function () {
           return objectionFind(Person)
             .build({
               'id:eq': 5,
-              eager: 'parent.[movies, pets]'
+              eager: 'parent.[movies, pets]',
             })
-            .then(function(result) {
+            .then(function (result) {
               expect(result).to.have.length(1);
               expect(result[0].parent).to.be.an.instanceof(session.models.Person);
               expect(result[0].parent.movies[0]).to.be.an.instanceof(session.models.Movie);
@@ -535,14 +535,14 @@ describe('integration tests', () => {
             });
         });
 
-        it('should pass eager expression to the query builder with renamed special parameter', function() {
+        it('should pass eager expression to the query builder with renamed special parameter', function () {
           return objectionFind(Person)
             .specialParameter('eager', 'withRelated')
             .build({
               'id:eq': 5,
-              withRelated: 'parent.[movies, pets]'
+              withRelated: 'parent.[movies, pets]',
             })
-            .then(function(result) {
+            .then(function (result) {
               expect(result).to.have.length(1);
               expect(result[0].parent).to.be.an.instanceof(session.models.Person);
               expect(result[0].parent.movies[0]).to.be.an.instanceof(session.models.Movie);
@@ -550,33 +550,33 @@ describe('integration tests', () => {
             });
         });
 
-        it('should pass allowEager to the query builder', function(done) {
+        it('should pass allowEager to the query builder', function (done) {
           const findQuery = objectionFind(Person).allowEager('parent');
           expect(findQuery.allowEager()).to.equal('parent');
           findQuery
             .build({
               'id:eq': 5,
-              eager: 'parent.[movies, pets]'
+              eager: 'parent.[movies, pets]',
             })
-            .catch(function() {
+            .catch(function () {
               done();
             });
         });
       });
 
-      describe('custom filters', function() {
-        it('should be able to register own custom filters', function() {
+      describe('custom filters', function () {
+        it('should be able to register own custom filters', function () {
           return objectionFind(Animal)
-            .registerFilter('contains', function(propertyRef, value) {
+            .registerFilter('contains', function (propertyRef, value) {
               return {
                 method: 'where',
-                args: [propertyRef.fullColumnName(), 'like', '%' + value + '%']
+                args: [propertyRef.fullColumnName(), 'like', '%' + value + '%'],
               };
             })
             .build({
-              'name:contains': '5'
+              'name:contains': '5',
             })
-            .then(function(result) {
+            .then(function (result) {
               expect(_.map(result, 'name').sort()).to.eql([
                 'P05',
                 'P15',
@@ -596,18 +596,18 @@ describe('integration tests', () => {
                 'P65',
                 'P75',
                 'P85',
-                'P95'
+                'P95',
               ]);
             });
         });
       });
 
-      describe('count', function() {
-        it('should retrieve count for a given filter criteria', function() {
+      describe('count', function () {
+        it('should retrieve count for a given filter criteria', function () {
           return objectionFind(Person)
             .build({
               'firstName:in': 'F01,F02,F05',
-              count: 'id'
+              count: 'id',
             })
             .then(([result]) => {
               switch (knexConfig.client) {
@@ -623,11 +623,11 @@ describe('integration tests', () => {
             });
         });
 
-        it('should retrieve count for a given filter criteria with alias', function() {
+        it('should retrieve count for a given filter criteria with alias', function () {
           return objectionFind(Person)
             .build({
               'firstName:in': 'F01,F02,F05',
-              count: 'id as idCount'
+              count: 'id as idCount',
             })
             .then(([result]) => {
               switch (knexConfig.client) {
@@ -643,15 +643,15 @@ describe('integration tests', () => {
         });
       });
 
-      describe('groupBy', function() {
-        it('should retrieve count for a given filter criteria grouped by field', function() {
+      describe('groupBy', function () {
+        it('should retrieve count for a given filter criteria grouped by field', function () {
           return objectionFind(Person)
             .build({
               'firstName:in': 'F01,F02,F05',
               count: 'id as countId',
-              groupBy: 'firstName'
+              groupBy: 'firstName',
             })
-            .then(result => {
+            .then((result) => {
               expect(result.length).to.equal(3);
               expect((result[0].countId = 1));
               expect((result[1].countId = 1));
@@ -665,14 +665,14 @@ describe('integration tests', () => {
             });
         });
 
-        it('should work correctly with an implicit eager retrieval for a nested search criteria', function() {
+        it('should work correctly with an implicit eager retrieval for a nested search criteria', function () {
           return objectionFind(Person)
             .build({
               'firstName:in': 'F01,F02,F05',
               count: 'id as countId',
-              groupBy: 'firstName'
+              groupBy: 'firstName',
             })
-            .then(result => {
+            .then((result) => {
               expect(result.length).to.equal(3);
               expect((result[0].countId = 1));
               expect((result[1].countId = 1));
@@ -686,13 +686,13 @@ describe('integration tests', () => {
             });
         });
 
-        it('should retrieve values for a given filter criteria grouped by field', function() {
+        it('should retrieve values for a given filter criteria grouped by field', function () {
           return objectionFind(Person)
             .build({
               'firstName:in': 'F01,F02,F05',
-              groupBy: 'firstName,lastName'
+              groupBy: 'firstName,lastName',
             })
-            .then(result => {
+            .then((result) => {
               expect(result.length).to.equal(3);
               expect(result[0].firstName).to.be.a('string');
               expect(result[1].firstName).to.be.a('string');
@@ -704,43 +704,43 @@ describe('integration tests', () => {
         });
       });
 
-      describe('parse errors', function() {
-        it('should fail if a property reference is invalid', function() {
-          expect(function() {
+      describe('parse errors', function () {
+        it('should fail if a property reference is invalid', function () {
+          expect(function () {
             objectionFind(Person).build({ 'movies..name': 'test' });
           })
             .to.throw(Error)
             .with.property('statusCode', 400);
 
-          expect(function() {
+          expect(function () {
             objectionFind(Person).build({ 'movies.name.length': 'test' });
           })
             .to.throw(Error)
             .with.property('statusCode', 400);
 
-          expect(function() {
+          expect(function () {
             objectionFind(Person).build({ 'movies.': 'test' });
           })
             .to.throw(Error)
             .with.property('statusCode', 400);
 
-          expect(function() {
+          expect(function () {
             objectionFind(Person).build({ 'movies.name::eq': 'test' });
           })
             .to.throw(Error)
             .with.property('statusCode', 400);
         });
 
-        it('should fail if relation is not found', function() {
-          expect(function() {
+        it('should fail if relation is not found', function () {
+          expect(function () {
             objectionFind(Person).build({ 'notValidRelation.name': 'test' });
           })
             .to.throw(Error)
             .with.property('statusCode', 400);
         });
 
-        it('should fail with invalid filter', function() {
-          expect(function() {
+        it('should fail with invalid filter', function () {
+          expect(function () {
             objectionFind(Person).build({ 'movies.name:invalidFilter': 'test' });
           })
             .to.throw(Error)
@@ -748,8 +748,8 @@ describe('integration tests', () => {
         });
       });
 
-      describe('mixtures', function() {
-        it('everything at once', function() {
+      describe('mixtures', function () {
+        it('everything at once', function () {
           return objectionFind(Person)
             .build({
               'firstName:like': 'F%',
@@ -759,14 +759,14 @@ describe('integration tests', () => {
               orderBy: 'parent.lastName',
               eager: 'parent',
               rangeStart: 2,
-              rangeEnd: 4
+              rangeEnd: 4,
             })
-            .then(function(result) {
+            .then(function (result) {
               expect(result.total).to.equal(4);
               expect(_.map(result.results, 'lastName')).to.eql([/*'L02', 'L03', */ 'L04', 'L05']);
               expect(_.map(result.results, 'parent.lastName')).to.eql([
                 /*'L03', 'L04', */ 'L05',
-                'L06'
+                'L06',
               ]);
             });
         });
