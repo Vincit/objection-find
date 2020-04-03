@@ -35,7 +35,7 @@ const MYSQL_CONFIG = Object.freeze({
 });
 
 module.exports = {
-  POSTGRESQL_CONFIG,
   SQLITE_CONFIG,
+  POSTGRESQL_CONFIG,
   MYSQL_CONFIG,
 };
