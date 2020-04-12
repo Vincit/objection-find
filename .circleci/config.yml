@@ -19,10 +19,10 @@ commands:
             sudo apt-get install mysql-client
       - run:
           name: Create PG
-          command: sudo psql -p 5432 -c "create database objection_find_test;" -U postgres
+          command: sudo psql -h localhost -p 5432 -c "create database objection_find_test;" -U postgres
       - run:
           name: Create MySQL
-          command: sudo mysql -e "create database objection_find_test;"
+          command: sudo mysql -u root -e "create database objection_find_test;"
       - run:
           name: Test
           command: npm run test:ci
@@ -39,6 +39,7 @@ jobs:
       - image: circleci/node:10
       - image: mysql
         environment:
+          MYSQL_USER: root
           MYSQL_ALLOW_EMPTY_PASSWORD: true
           MYSQL_PASSWORD:
       - image: postgres
@@ -52,6 +53,7 @@ jobs:
       - image: circleci/node:12
       - image: mysql
         environment:
+          MYSQL_USER: root
           MYSQL_ALLOW_EMPTY_PASSWORD: true
           MYSQL_PASSWORD:
       - image: postgres
