@@ -12,14 +12,17 @@ commands:
             - v{{ .Environment.CIRCLE_CACHE_VERSION }}-{{ arch }}-npm-cache-{{ .Branch }}-{{ .Environment.CIRCLE_JOB }}
             - v{{ .Environment.CIRCLE_CACHE_VERSION }}-{{ arch }}-npm-cache-master-{{ .Environment.CIRCLE_JOB }}
       - run:
+          name: Install dependencies
+          command: |
+            npm ci
+            sudo apt-get install postgresql-client
+            sudo apt-get install mysql-client
+      - run:
           name: Create PG
-          command: psql -c "create database objection_find_test;" -U postgres
+          command: sudo psql -h localhost -p 5432 -c "create database objection_find_test;" -U postgres
       - run:
           name: Create MySQL
-          command: mysql -e "create database objection_find_test;"
-      - run:
-          name: Install dependencies
-          command: npm ci
+          command: sudo mysql --host="127.0.0.1" -u root --password=pass -e "create database objection_find_test;"
       - run:
           name: Test
           command: npm run test:ci
@@ -33,16 +36,30 @@ commands:
 jobs:
   node-v10:
     docker:
-      - image: node:10
-      - image: mysql
-      - image: postgres
+      - image: circleci/node:10
+      - image: circleci/mysql
+        command: [--default-authentication-plugin=mysql_native_password]
+        environment:
+          MYSQL_ALLOW_EMPTY_PASSWORD: true
+          MYSQL_ROOT_PASSWORD: pass
+      - image: circleci/postgres
+        environment:
+          POSTGRES_USER: postgres
+          POSTGRES_HOST_AUTH_METHOD: trust
     steps:
       - test-nodejs
   node-v12:
     docker:
-      - image: node:12
-      - image: mysql
-      - image: postgres
+      - image: circleci/node:12
+      - image: circleci/mysql
+        command: [--default-authentication-plugin=mysql_native_password]
+        environment:
+          MYSQL_ALLOW_EMPTY_PASSWORD: true
+          MYSQL_ROOT_PASSWORD: pass
+      - image: circleci/postgres
+        environment:
+          POSTGRES_USER: postgres
+          POSTGRES_HOST_AUTH_METHOD: trust
     steps:
       - test-nodejs
 

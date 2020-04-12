@@ -5,6 +5,7 @@ const POSTGRESQL_CONFIG = Object.freeze({
   client: 'postgres',
   connection: {
     host: '127.0.0.1',
+    user: 'postgres',
     database: 'objection_find_test',
   },
   pool: {
@@ -25,7 +26,8 @@ const MYSQL_CONFIG = Object.freeze({
   client: 'mysql',
   connection: {
     host: '127.0.0.1',
-    user: 'travis',
+    user: 'root',
+    password: 'pass',
     database: 'objection_find_test',
   },
   pool: {
