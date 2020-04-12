@@ -15,8 +15,8 @@ commands:
           name: Install dependencies
           command: |
             npm ci
-            apt-get install postgresql-client
-            apt-get install mysql-client
+            sudo apt-get install postgresql-client
+            sudo apt-get install mysql-client
       - run:
           name: Create PG
           command: sudo psql -p 5432 -c "create database objection_find_test;" -U postgres
