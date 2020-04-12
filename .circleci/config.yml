@@ -22,7 +22,7 @@ commands:
           command: sudo psql -h localhost -p 5432 -c "create database objection_find_test;" -U postgres
       - run:
           name: Create MySQL
-          command: sudo mysql --host="127.0.0.1" -u root -e "create database objection_find_test;"
+          command: sudo mysql --host="127.0.0.1" -u root -p pass -e "create database objection_find_test;"
       - run:
           name: Test
           command: npm run test:ci
@@ -41,7 +41,7 @@ jobs:
         command: [--default-authentication-plugin=mysql_native_password]
         environment:
           MYSQL_ALLOW_EMPTY_PASSWORD: true
-          MYSQL_ROOT_PASSWORD:
+          MYSQL_ROOT_PASSWORD: pass
       - image: circleci/postgres
         environment:
           POSTGRES_USER: postgres
@@ -55,7 +55,7 @@ jobs:
         command: [--default-authentication-plugin=mysql_native_password]
         environment:
           MYSQL_ALLOW_EMPTY_PASSWORD: true
-          MYSQL_ROOT_PASSWORD:
+          MYSQL_ROOT_PASSWORD: pass
       - image: circleci/postgres
         environment:
           POSTGRES_USER: postgres
