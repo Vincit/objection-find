@@ -38,6 +38,7 @@ jobs:
     docker:
       - image: circleci/node:10
       - image: circleci/mysql
+        command: [--default-authentication-plugin=mysql_native_password]
         environment:
           MYSQL_ALLOW_EMPTY_PASSWORD: true
           MYSQL_ROOT_PASSWORD:
@@ -51,6 +52,7 @@ jobs:
     docker:
       - image: circleci/node:12
       - image: circleci/mysql
+        command: [--default-authentication-plugin=mysql_native_password]
         environment:
           MYSQL_ALLOW_EMPTY_PASSWORD: true
           MYSQL_ROOT_PASSWORD:
