@@ -11,6 +11,12 @@ describe('integration tests', () => {
     describe(knexConfig.client, () => {
       let session, knex, Person, Animal, Movie;
 
+      after(() => {
+        if (knex) {
+          knex.destroy();
+        }
+      });
+
       before(() => {
         session = testUtils.initialize(knexConfig);
         knex = session.knex;
