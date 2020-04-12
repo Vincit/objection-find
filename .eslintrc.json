@@ -1,9 +1,16 @@
 {
-  "parser": "babel-eslint",
-  "plugins": [
-    "prettier"
-  ],
+  "parserOptions": {
+    "ecmaVersion": 2018
+  },
+  "extends": ["eslint:recommended", "prettier"],
+  "plugins": ["prettier"],
   "rules": {
-    "prettier/prettier": "error"
+    "prettier/prettier": "error",
+    "no-unused-vars": "off"
+  },
+  "env": {
+    "node": true,
+    "mocha": true,
+    "es6": true
   }
 }

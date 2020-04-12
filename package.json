@@ -6,6 +6,8 @@
   "types": "typings/index.d.ts",
   "license": "MIT",
   "scripts": {
+    "lint": "eslint --format codeframe \"lib/**/*.js\" \"tests/**/*.js\"",
+    "lint:fix": "eslint --fix \"lib/**/*.js\" \"tests/**/*.js\"",
     "lint:types": "dtslint --onlyTestTsNext typings",
     "test": "nyc mocha --slow 10 --timeout 7000 --reporter spec tests/test.js",
     "test-only": "mocha --slow 10 --timeout 50000 --reporter spec tests/test.js",
@@ -13,8 +15,7 @@
     "perf-test-init": "node tests/perf-init.js",
     "test:ci": "npm run lint && npm run test",
     "coveralls": "cat ./test-coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
-    "prettier": "prettier --write \"{lib,tests}/**/*.{js,ts}\"",
-    "lint": "eslint --format codeframe \"lib/**/*.js\" \"tests/**/*.js\""
+    "prettier": "prettier --write \"{lib,tests}/**/*.{js,ts}\""
   },
   "author": {
     "name": "Sami Koskimäki",
@@ -53,21 +54,21 @@
     "lodash": "^4.17.15"
   },
   "devDependencies": {
-    "@types/node": "^13.11.0",
-    "babel-eslint": "^10.1.0",
+    "@types/node": "^12.12.35",
     "bluebird": "^3.7.2",
     "chai": "^4.2.0",
     "coveralls": "^3.0.11",
     "dtslint": "^3.4.1",
     "eslint": "^6.8.0",
+    "eslint-config-prettier": "^6.10.1",
     "eslint-plugin-prettier": "^3.1.2",
     "knex": "~0.20.13",
-    "mocha": "5.2.0",
+    "mocha": "6.2.3",
     "mysql": "^2.18.1",
-    "nyc": "^14.1.1",
+    "nyc": "^15.0.1",
     "objection": "^1.6.11",
-    "pg": "^7.14.0",
-    "prettier": "^2.0.2",
+    "pg": "^7.18.2",
+    "prettier": "^2.0.4",
     "sqlite3": "^4.1.1",
     "typescript": "3.8.3"
   },
