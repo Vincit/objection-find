@@ -38,10 +38,11 @@ jobs:
     docker:
       - image: circleci/node:10
       - image: mysql
-      - image: postgres
         environment:
           MYSQL_ALLOW_EMPTY_PASSWORD: true
           MYSQL_PASSWORD:
+      - image: postgres
+        environment:
           POSTGRES_USER: postgres
           POSTGRES_HOST_AUTH_METHOD: trust
     steps:
@@ -50,9 +51,11 @@ jobs:
     docker:
       - image: circleci/node:12
       - image: mysql
-      - image: postgres
         environment:
           MYSQL_ALLOW_EMPTY_PASSWORD: true
+          MYSQL_PASSWORD:
+      - image: postgres
+        environment:
           POSTGRES_USER: postgres
           POSTGRES_HOST_AUTH_METHOD: trust
     steps:
