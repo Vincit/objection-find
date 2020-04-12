@@ -15,8 +15,8 @@ commands:
           name: Install dependencies
           command: |
             npm ci
-            sudo apt-get install postgresql-client
-            sudo apt-get install mysql-client
+            apt-get install postgresql-client
+            apt-get install mysql-client
       - run:
           name: Create PG
           command: sudo psql -p 5432 -c "create database objection_find_test;" -U postgres
@@ -36,14 +36,14 @@ commands:
 jobs:
   node-v10:
     docker:
-      - image: node:10
+      - image: circleci/node:10
       - image: mysql
       - image: postgres
     steps:
       - test-nodejs
   node-v12:
     docker:
-      - image: node:12
+      - image: circleci/node:12
       - image: mysql
       - image: postgres
     steps:
