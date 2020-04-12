@@ -22,7 +22,7 @@ commands:
           command: sudo psql -h localhost -p 5432 -c "create database objection_find_test;" -U postgres
       - run:
           name: Create MySQL
-          command: sudo mysql -u root -e "create database objection_find_test;"
+          command: sudo mysql --host="127.0.0.1" -u root -e "create database objection_find_test;"
       - run:
           name: Test
           command: npm run test:ci
