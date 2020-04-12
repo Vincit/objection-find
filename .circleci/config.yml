@@ -41,6 +41,7 @@ jobs:
       - image: postgres
         environment:
           MYSQL_ALLOW_EMPTY_PASSWORD: true
+          MYSQL_PASSWORD:
           POSTGRES_USER: postgres
           POSTGRES_HOST_AUTH_METHOD: trust
     steps:
