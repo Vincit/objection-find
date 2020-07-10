@@ -391,9 +391,8 @@ describe('integration tests', () => {
             return objectionFind(Animal)
               .build({
                 orderByAsc: ['owner:parent:lastName'],
-                eager: 'owner.[parent]',
+                join: 'owner.[parent]',
               })
-              .eagerAlgorithm(Model.JoinEagerAlgorithm)
               .then(function (result) {
                 const names = _.map(
                   _.reject(result, (pet) => _.includes(pet.name, 'P0')),
