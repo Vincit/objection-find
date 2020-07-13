@@ -51,26 +51,26 @@
     "lib/*"
   ],
   "dependencies": {
-    "lodash": "^4.17.15"
+    "lodash": "^4.17.19"
   },
   "devDependencies": {
-    "@types/node": "^12.12.35",
+    "@types/node": "^12.12.50",
     "bluebird": "^3.7.2",
     "chai": "^4.2.0",
-    "coveralls": "^3.0.11",
-    "dtslint": "^3.4.1",
+    "coveralls": "^3.1.0",
+    "dtslint": "^3.6.12",
     "eslint": "^6.8.0",
-    "eslint-config-prettier": "^6.10.1",
-    "eslint-plugin-prettier": "^3.1.2",
-    "knex": "~0.20.13",
-    "mocha": "6.2.3",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-plugin-prettier": "^3.1.4",
+    "knex": "~0.21.2",
+    "mocha": "^8.0.1",
     "mysql": "^2.18.1",
-    "nyc": "^15.0.1",
-    "objection": "^2.0.0",
-    "pg": "^7.18.2",
-    "prettier": "^2.0.4",
-    "sqlite3": "^4.1.1",
-    "typescript": "3.8.3"
+    "nyc": "^15.1.0",
+    "objection": "^2.2.1",
+    "pg": "^8.3.0",
+    "prettier": "^2.0.5",
+    "sqlite3": "^5.0.0",
+    "typescript": "3.9.6"
   },
   "peerDependencies": {
     "objection": ">=2.0.0 <3.0.0"
