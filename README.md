@@ -177,7 +177,8 @@ In addition to the filter parameters, there is a set of query parameters that ha
 
 | Special parameter                 | Explanation                                                                                              |
 |-----------------------------------|----------------------------------------------------------------------------------------------------------|
-| `eager=[children, parent.movies]` | Which relations to fetch eagerly for the result models. An objection.js relation expression.             |
+| `eager=[children, parent.movies]` | Which relations to fetch eagerly for the result models. An objection.js relation expression. That pass to [withGraphFetched](https://vincit.github.io/objection.js/api/query-builder/eager-methods.html#withgraphfetched). |
+| `join=[parent, parent.movies]`    | Which relations to join and fetch eagerly for the result models. An objection.js relation expression. That pass to [withGraphJoined](https://vincit.github.io/objection.js/api/query-builder/eager-methods.html#withgraphjoined). |
 | `orderBy=firstName`               | Sort the result by certain property.                                                                     |
 | `orderByDesc=firstName`           | Sort the result by certain property in descending order.                                                 |
 | `rangeStart=10`                   | The start of the result range (inclusive). The result will be `{total: 12343, results: [ ... ]}`.        |
