@@ -1,6 +1,6 @@
 {
   "name": "objection-find",
-  "version": "2.1.0",
+  "version": "3.0.0",
   "description": "Build search queries for objection.js models using HTTP query parameters.",
   "main": "objection-find.js",
   "types": "typings/index.d.ts",
