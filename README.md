@@ -20,9 +20,9 @@ expressions.
 Using objection-find in an [express](http://expressjs.com/) route is as easy as this:
 
 ```js
-var findQuery = require('objection-find');
+const findQuery = require('objection-find');
 // Our objection.js model.
-var Person = require('../models/Person');
+const Person = require('../models/Person');
 
 expressApp.get('/api/persons', function (req, res, next) {
   findQuery(Person)
@@ -80,7 +80,7 @@ $http({
     'rangeEnd': 4
   }
 }).then(function (res) {
-  var persons = res.data.results;
+  const persons = res.data.results;
 
   console.log(persons.length); // --> 5
   console.log(persons[0].children);
@@ -113,7 +113,7 @@ Easiest way to get started is to use [the objection.js example project](https://
 and copy paste this to the `api.js` file:
 
 ```js
-var findQuery = require('objection-find');
+const findQuery = require('objection-find');
 
 app.get('/persons/search', function (req, res, next) {
   findQuery(Person).build(req.query).then(function (persons) {

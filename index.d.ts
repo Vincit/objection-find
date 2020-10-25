@@ -1,7 +1,11 @@
-import { Model, ModelClass, Page, RelationExpression } from 'objection';
+import { Constructor, Model, ModelClass, Page, RelationExpression } from 'objection';
 
 interface FilterFn<M extends Model> {
-  (propertyRef: PropertyRef<M>, value: string, modelClass: ModelClass<M>): { method: string; args: any[] };
+  (propertyRef: PropertyRef<M>, value: string, modelClass: ModelClass<M>): {
+    method: string;
+    // eslint-disable-next-line
+    args: any[];
+  };
 }
 
 export class FindQueryBuilder<M extends Model, R = M[]> {
@@ -22,12 +26,16 @@ export class FindQueryBuilder<M extends Model, R = M[]> {
    * findQuery(Person).allow('firstName', 'parent.firstName', 'pets.name');
    * ```
    */
-  allow(...args: string[]): this['SingleQueryBuilderType'] & M['QueryBuilderType']['SingleQueryBuilderType'];
+  allow(
+    ...args: string[]
+  ): this['SingleQueryBuilderType'] & M['QueryBuilderType']['SingleQueryBuilderType'];
 
   /**
    * Allow all property references. This is true by default.
    */
-  allowAll(bool: boolean): this['SingleQueryBuilderType'] & M['QueryBuilderType']['SingleQueryBuilderType'];
+  allowAll(
+    bool: boolean
+  ): this['SingleQueryBuilderType'] & M['QueryBuilderType']['SingleQueryBuilderType'];
 
   /**
    * Sets/gets the allowed eager expression.
@@ -35,7 +43,9 @@ export class FindQueryBuilder<M extends Model, R = M[]> {
    * Calls the `allowEager` method of a objection.js `QueryBuilder`. See the objection.js
    * documentation for more information.
    */
-  allowEager(exp: RelationExpression<M>): this['SingleQueryBuilderType'] & M['QueryBuilderType']['SingleQueryBuilderType'] | null;
+  allowEager(
+    exp: RelationExpression<M>
+  ): (this['SingleQueryBuilderType'] & M['QueryBuilderType']['SingleQueryBuilderType']) | null;
 
   /**
    * Registers a filter function.
@@ -91,7 +101,10 @@ export class FindQueryBuilder<M extends Model, R = M[]> {
    *
    * Now you could use your filter in the query parameters like this `someProperty:leq=Hello`.
    */
-  registerFilter(filterName: string, filter: FilterFn<M>): this['SingleQueryBuilderType'] & M['QueryBuilderType']['SingleQueryBuilderType'];
+  registerFilter(
+    filterName: string,
+    filter: FilterFn<M>
+  ): this['SingleQueryBuilderType'] & M['QueryBuilderType']['SingleQueryBuilderType'];
 
   /**
    * Give names for the special parameters.
@@ -104,7 +117,10 @@ export class FindQueryBuilder<M extends Model, R = M[]> {
    * builder.specialParameter('eager', 'withRelated');
    * ```
    */
-  specialParameter(name: string, parameterName: string): this['SingleQueryBuilderType'] & M['QueryBuilderType']['SingleQueryBuilderType'];
+  specialParameter(
+    name: string,
+    parameterName: string
+  ): this['SingleQueryBuilderType'] & M['QueryBuilderType']['SingleQueryBuilderType'];
 
   /**
    * Builds the find query for the given query parameters.
@@ -120,7 +136,11 @@ export class FindQueryBuilder<M extends Model, R = M[]> {
    * });
    * ```
    */
-  build(params: object, builder?: this['SingleQueryBuilderType'] & M['QueryBuilderType']['SingleQueryBuilderType']): this['SingleQueryBuilderType'] & M['QueryBuilderType']['SingleQueryBuilderType'];
+  build(
+    // eslint-disable-next-line
+    params: Record<string, any>,
+    builder?: this['SingleQueryBuilderType'] & M['QueryBuilderType']['SingleQueryBuilderType']
+  ): this['SingleQueryBuilderType'] & M['QueryBuilderType']['SingleQueryBuilderType'];
 }
 
 export class PropertyRef<M extends Model> {
@@ -154,13 +174,5 @@ export class PropertyRef<M extends Model> {
   buildFilter(param: string, builder: FindQueryBuilder<M>, boolOp?: string): void;
 }
 
-interface FindStatic<T extends typeof Model> {
-  QueryBuilder: typeof FindQueryBuilder;
-  new(): FindInstance<T> & T['prototype'];
-}
-
-interface FindInstance<T extends typeof Model> {
-  QueryBuilderType: FindQueryBuilder<this & T['prototype']>;
-}
-
-export default function findQuery<T extends typeof Model>(subClass: T): FindStatic<T> & Omit<T, 'new'> & T['prototype'];
+export function findQuery<T extends Model>(modelClass: Constructor<T>): FindQueryBuilder<T>;
+export default findQuery;
