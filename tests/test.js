@@ -3,7 +3,7 @@
 const _ = require('lodash');
 const expect = require('chai').expect;
 const testUtils = require('./utils');
-const objectionFind = require('../objection-find');
+const objectionFind = require('../');
 const { Model } = require('objection');
 
 describe('integration tests', () => {

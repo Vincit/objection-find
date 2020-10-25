@@ -3,7 +3,7 @@
 const _ = require('lodash');
 const Promise = require('bluebird');
 const testUtils = require('./utils');
-const objectionFind = require('../objection-find');
+const objectionFind = require('../');
 
 const N = 5;
 let session;
