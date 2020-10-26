@@ -76,6 +76,20 @@ jobs:
           POSTGRES_HOST_AUTH_METHOD: trust
     steps:
       - test-nodejs
+  node-v15:
+    docker:
+      - image: circleci/node:15
+      - image: circleci/mysql
+        command: [--default-authentication-plugin=mysql_native_password]
+        environment:
+          MYSQL_ALLOW_EMPTY_PASSWORD: true
+          MYSQL_ROOT_PASSWORD: pass
+      - image: circleci/postgres
+        environment:
+          POSTGRES_USER: postgres
+          POSTGRES_HOST_AUTH_METHOD: trust
+    steps:
+      - test-nodejs
 workflows:
   version: 2
   node-multi-build:
@@ -83,3 +97,4 @@ workflows:
       - node-v10
       - node-v12
       - node-v14
+      - node-v15

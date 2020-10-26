@@ -1,7 +1,7 @@
 const _ = require('lodash');
 const expect = require('chai').expect;
 const testUtils = require('./db-initializer-with-schema');
-const objectionFind = require('../objection-find');
+const objectionFind = require('../');
 const TestDatabaseConfigs = require('./TestDatabaseConfigs');
 
 describe('integration tests with schema', () => {

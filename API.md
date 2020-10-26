@@ -17,9 +17,9 @@ instance. Just pass an [objection.js](https://github.com/Vincit/objection.js/) m
 and start building the query.
 
 ```js
-var findQuery = require('objection-find');
-var Person = require('./models/Person');
-var builder = findQuery(Person);
+const findQuery = require('objection-find');
+const Person = require('./models/Person');
+const builder = findQuery(Person);
 ```
 
 `findQuery(Person)` is just a shortcut for [new findQuery.FindQueryBuilder(Person)](#new-findquerybuilderobjectionmodelconstructor---findquerybuilder)
@@ -53,9 +53,9 @@ and whatnot.
 The constructor function.
 
 ```js
-var FindQueryBuilder = require('objection-find').FindQueryBuilder;
-var Person = require('./models/Person');
-var findQueryBuilder = new FindQueryBuilder(Person);
+const FindQueryBuilder = require('objection-find').FindQueryBuilder;
+const Person = require('./models/Person');
+const findQueryBuilder = new FindQueryBuilder(Person);
 ```
 
 <br>
@@ -65,7 +65,7 @@ var findQueryBuilder = new FindQueryBuilder(Person);
 Creates a subclass of the FindQueryBuilder.
 
 ```js
-var FindQueryBuilder = require('objection-find').FindQueryBuilder;
+const FindQueryBuilder = require('objection-find').FindQueryBuilder;
 
 function MyFindQueryBuilder() {
   FindQueryBuilder.apply(this, arguments);
@@ -171,7 +171,7 @@ The `method` must be the name of one of the objection.js where methods. `args` i
 of arguments for the method. The filter is invoked somewhat like this:
 
 ```js
-var filter = lowercaseEq(propertyRef, value, modelClass);
+const filter = lowercaseEq(propertyRef, value, modelClass);
 objectionQueryBuilder[filter.method].apply(objectionQueryBuilder, filter.args);
 ```
 
