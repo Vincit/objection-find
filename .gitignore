@@ -4,3 +4,4 @@ test-coverage
 examples/*/*.db
 *.iml
 *.DS_Store
+.nyc_output
