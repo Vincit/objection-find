@@ -1,4 +1,15 @@
-import { Constructor, Model, ModelClass, Page, RelationExpression } from 'objection';
+import {
+  ArrayQueryBuilder,
+  Constructor,
+  Model,
+  ModelClass,
+  NumberQueryBuilder,
+  Page,
+  PageQueryBuilder,
+  QueryBuilder,
+  RelationExpression,
+  SingleQueryBuilder,
+} from 'objection';
 
 interface FilterFn<M extends Model> {
   (propertyRef: PropertyRef<M>, value: string, modelClass: ModelClass<M>): {
@@ -139,8 +150,26 @@ export class FindQueryBuilder<M extends Model, R = M[]> {
   build(
     // eslint-disable-next-line
     params: Record<string, any>,
-    builder?: this['SingleQueryBuilderType'] & M['QueryBuilderType']['SingleQueryBuilderType']
-  ): this['SingleQueryBuilderType'] & M['QueryBuilderType']['SingleQueryBuilderType'];
+    builder?: ArrayQueryBuilder<QueryBuilder<M>>
+  ): ArrayQueryBuilder<QueryBuilder<M>>;
+
+  build(
+    // eslint-disable-next-line
+    params: Record<string, any>,
+    builder?: SingleQueryBuilder<QueryBuilder<M>>
+  ): SingleQueryBuilder<QueryBuilder<M>>;
+
+  build(
+    // eslint-disable-next-line
+    params: Record<string, any>,
+    builder?: NumberQueryBuilder<QueryBuilder<M>>
+  ): NumberQueryBuilder<QueryBuilder<M>>;
+
+  build(
+    // eslint-disable-next-line
+    params: Record<string, any>,
+    builder?: PageQueryBuilder<QueryBuilder<M>>
+  ): PageQueryBuilder<QueryBuilder<M>>;
 }
 
 export class PropertyRef<M extends Model> {
