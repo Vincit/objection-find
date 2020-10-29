@@ -6,6 +6,8 @@
 - [Installation](#installation)
 - [Getting started](#getting-started)
 - [Query parameters](#query-parameters)
+- [Special parameters](#special-parameters)
+- [Additional parameters](#additional-parameters)
 - [API documentation](API.md)
 
 # Introduction
@@ -186,7 +188,7 @@ In addition to the filter parameters, there is a set of query parameters that ha
 
 ## Additional parameters
 
-Any query parameters, that are not listed in [Special parameters](https://github.com/Vincit/objection-find#special-parameters), such as [page](https://vincit.github.io/objection.js/api/query-builder/other-methods.html#page), can be passed as query in second parameter.
+Any query parameters, that are not listed in [Special parameters](#special-parameters), such as [page](https://vincit.github.io/objection.js/api/query-builder/other-methods.html#page), can be passed as query in second parameter.
 
 ```js
 const findQuery = require('objection-find');
