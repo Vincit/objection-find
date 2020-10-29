@@ -6,6 +6,8 @@
 - [Installation](#installation)
 - [Getting started](#getting-started)
 - [Query parameters](#query-parameters)
+- [Special parameters](#special-parameters)
+- [Additional parameters](#additional-parameters)
 - [API documentation](API.md)
 
 # Introduction
@@ -183,3 +185,22 @@ In addition to the filter parameters, there is a set of query parameters that ha
 | `orderByDesc=firstName`           | Sort the result by certain property in descending order.                                                 |
 | `rangeStart=10`                   | The start of the result range (inclusive). The result will be `{total: 12343, results: [ ... ]}`.        |
 | `rangeEnd=50`                     | The end of the result range (inclusive). The result will be `{total: 12343, results: [ ... ]}`.          |
+
+## Additional parameters
+
+Any query parameters, that are not listed in [Special parameters](#special-parameters), such as [page](https://vincit.github.io/objection.js/api/query-builder/other-methods.html#page), can be passed as query in second parameter.
+
+```js
+const findQuery = require('objection-find');
+
+app.get('/persons', function (req, res, next) {
+  const { page, ...query } = req.query;
+  
+  findQuery(Person)
+    .build(query, Person.query().page(page, 12))
+    .then(function (persons) {
+      res.send(persons);
+    })
+    .catch(next);
+});
+```
